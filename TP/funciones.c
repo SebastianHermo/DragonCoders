@@ -2,21 +2,7 @@
 #include <malloc.h>
 #include <stdbool.h>
 #include <string.h>
-
-
-typedef struct structNodo {
-    /// @brief 
-    struct structNodo proximo;
-    char alumno;
-    int edad;
-} Alumno;
-
-typedef struct structNodo
-{
-    char nombre;
-    bool estado;
-}Materia;
-
+#include "struct.c"
 
 Alta(Alumno **lista) {
 
