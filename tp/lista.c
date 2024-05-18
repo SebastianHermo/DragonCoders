@@ -6,7 +6,8 @@ typedef struct structNodo {
     struct structNodo *proximo;
 } Nodo;
 
-Nodo *agregar(Nodo *lista, int valor) {
+
+Alta(Nodo *lista, int valor) {
     Nodo *nuevoNodo = malloc(sizeof(Nodo));
     nuevoNodo->valor = valor;
     nuevoNodo->proximo = NULL;
@@ -22,6 +23,47 @@ Nodo *agregar(Nodo *lista, int valor) {
     return lista;
 }
 
+Baja(){
+
+}
+
+modificar(){
+
+}
+
+eliminar(){
+
+}
+
+enlistarAlumnos(){
+
+}
+
+buscarAlumno(){
+
+}
+
+buscarAlumnoEdad(){
+
+}
+
+anotarseEnLaMateria(alumno, materia){
+
+}
+
+rendirMateria(){
+
+}
+
+
+
+
+
+
+
+
+
+/*
 int main(void) {
     Nodo *lista = NULL;
 
@@ -34,4 +76,4 @@ int main(void) {
     printf("%d\n", lista->proximo->valor);
     printf("%d\n", lista->proximo->proximo->valor);
     printf("%d\n", lista->proximo->proximo->proximo->valor);
-}
+}*/
