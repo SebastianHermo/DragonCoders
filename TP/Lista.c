@@ -1,26 +1,38 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <stdbool.h>
+#include <string.h>
+
 
 typedef struct structNodo {
+    /// @brief 
     struct structNodo proximo;
-} Nodo;
+    char alumno;
+    int edad;
+} Alumno;
 
-Alta(Nodo **lista) {
+typedef struct structNodo
+{
+    char nombre;
+    bool estado;
+}Materia;
+
+
+Alta(Alumno **lista) {
 
     //if esAlumno || esMateria{
-    Nodo *nuevoNodo = malloc(sizeof(Nodo));
-    nuevoNodo->valor = valor;
+    Alumno *nuevoNodo = malloc(sizeof(Alumno));
     nuevoNodo->proximo = NULL;
     if (*lista == NULL) {
         *lista = nuevoNodo;
     } else {
-        Nodo *cursor = *lista;
+        Alumno *cursor = *lista;
         while (cursor->proximo != NULL) {
             cursor = cursor->proximo;
         }
         cursor->proximo = nuevoNodo;
     }
-    }
+}
 
    
 //}
