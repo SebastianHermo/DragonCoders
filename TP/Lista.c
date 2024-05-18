@@ -7,7 +7,7 @@ typedef struct structNodo {
 
 Alta(Nodo **lista) {
 
-    if esAlumno || esMateria{
+    //if esAlumno || esMateria{
     Nodo *nuevoNodo = malloc(sizeof(Nodo));
     nuevoNodo->valor = valor;
     nuevoNodo->proximo = NULL;
@@ -23,19 +23,19 @@ Alta(Nodo **lista) {
     }
 
    
-}
+//}
 
 Baja(){
-    if esAlumno || esMateria{
+   // if esAlumno || esMateria{
 
-    }
+   // }
 
 }
 
 modificar(){
-    if esAlumno || esMateria{
+    //if esAlumno || esMateria{
         
-    }
+    //}
 
 }
 
