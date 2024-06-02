@@ -2,8 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct structNodo
-{
+typedef struct structNodo{
     ///@brief
     struct structNodo proximo;
     char nombre;
