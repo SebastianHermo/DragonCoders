@@ -103,47 +103,40 @@ void bajaMateria(Materia **lista, char* materia) {
 
 }
 
-//Modificar una materia en cuestion
-void modificarMateria(Materia **lista, char* materia){
+//Modificar una materia en cuestion ya existente
+void modificarMateria(Materia **lista, char *materia) {
 Materia *cursor = *lista;
 
-    while (cursor!= NULL && strcmp(cursor->nombre, materia)!= 0) {
-        cursor = cursor->proximo;
-    }   
-
-    if (cursor!= NULL) {
-        strcpy(cursor->nombre, materia);
-    } else {
-        printf("Materia no encontrada\n");
-    }
-    if (strcpy(cursor->nombre,materia) == 0)
-    {
-        char* temp;
-        printf("Ingrese su nombre: ");
-        scanf("%s", temp);
-        cursor->nombre = temp;
-    }  
-}
-
-//Modificar algun alumno en particular
-void modificarAlumno(Alumno **lista, char* materia){
-Alumno *cursor = *lista;
-
 while (cursor!= NULL && strcmp(cursor->nombre, materia)!= 0) {
-    cursor = cursor->proximo;
-}   
+     cursor = cursor->proximo;
+}
 
 if (cursor!= NULL) {
-    strcpy(cursor->nombre, materia);
-} else {
-    printf("Materia no encontrada\n");
+    printf("Ingrese el nuevo nombre de la materia: ");
+    char nuevoNombre[50];
+    scanf("%49s", nuevoNombre);
+    strcpy(cursor->nombre, nuevoNombre);
+    } else {
+        printf("La materia no existe.\n");
+    }
 }
-if (strcpy(cursor->nombre,materia) == 0){
-    char* temp;
-    printf("Ingrese su nombre: ");
-    scanf("%s", temp);
-    cursor->nombre = temp;
-    }  
+
+//Modificar algun alumno en particular ya existente
+void modificarAlumno(Alumno **lista, char *alumno) {
+Alumno *cursor = *lista;
+
+while (cursor != NULL && strcmp(cursor->nombre, alumno) != 0) {
+    cursor = cursor->proximo;
+}
+
+if (cursor != NULL) {
+    printf("Ingrese el nuevo nombre: ");
+    char nuevoNombre[50];
+    scanf("%49s", nuevoNombre);
+    strcpy(cursor->nombre, nuevoNombre);
+} else {
+    printf("El estudiante no existe.\n");
+}
 }
 
 //Hacer una lista de los alumnos de la materia
@@ -176,6 +169,64 @@ void buscarAlumnoEdad(Alumno **lista, int edad) {
 }
 
 //Anotar un alumno que esta dado de alta en la materia
-void anotarseEnLaMateria(Alumno **alumnos, Materia **materias, char* alumno, char* materia){}
+void agregarMateriaAlAlumno(Alumno* alumno, char* nombreMateria) {
+    Materia* nuevaMateria = (Materia*) malloc(sizeof(Materia));
+    strcpy(nuevaMateria->nombre, nombreMateria);
+    nuevaMateria->estado = 0;
+    nuevaMateria->nota = 0.0;
+    nuevaMateria->regularidad = 0;
+    nuevaMateria->proximo = NULL;
 
-void rendirMateria(Alumno **alumnos, Materia **materias, char* alumno, char* materia){}
+    if (alumno->materias == NULL) {
+        alumno->materias = nuevaMateria;
+    } else {
+        Materia* cursor = alumno->materias;
+        while (cursor->proximo!= NULL) {
+            cursor = cursor->proximo;
+        }
+        cursor->proximo = nuevaMateria;
+    }
+}
+
+/*Edita la materia del alumno con respecto a sus notas y la regularidad, 
+Siendo que la regularidad es 1 y la irregularidad es 0,
+*/
+void editarMateriaDelAlumno(Alumno* alumno, char* nombreMateria, float nota, int regularidad) {
+    Materia* cursor = alumno->materias;
+    while (cursor!= NULL && strcmp(cursor->nombre, nombreMateria)!= 0) {
+        cursor = cursor->proximo;
+    }
+    if (cursor!= NULL) {
+        cursor->nota = nota;
+        cursor->regularidad = regularidad;
+        if (nota > 4 && regularidad == 1) {
+            cursor->estado = 1; // Aprobado
+        } else {
+            cursor->estado = 0; // No aprobado
+        }
+    } else {
+        printf("La materia no existe.\n");
+    }
+}
+
+//Imprime las materias que tiene un alumno junto a sus detalles
+void imprimirMateriasDelAlumno(Alumno* alumno) {
+Materia* cursor = alumno->materias;
+while (cursor!= NULL) {
+    char* regularidadStr;
+    if (cursor->regularidad == 0) {
+        regularidadStr = "irregular";
+    } else {
+        regularidadStr = "regular";
+    }
+    char* estadoStr;
+    if (cursor->estado == 1) {
+        estadoStr = "aprobado";
+    } else {
+        estadoStr = "desaprobado";
+    }
+    printf("Materia: %s, Estado: %s, Nota: %.2f, Regularidad: %s\n",
+        cursor->nombre, estadoStr, cursor->nota, regularidadStr);
+    cursor = cursor->proximo;
+    }
+}
