@@ -139,8 +139,32 @@ if (cursor != NULL) {
 }
 }
 
-//Hacer una lista de los alumnos de la materia
-void enlistarAlumnos(Alumno **lista){}
+//Lista de los alumnos de una materia especifica
+void enlistarAlumnosSegunLaMateria(Alumno **lista, char* materia) {
+    Alumno* cursor = *lista;
+    printf("Alumnos de la materia %s:\n", materia);
+    while (cursor!= NULL) {
+        Materia* materiaCursor = cursor->materias;
+        while (materiaCursor!= NULL) {
+            if (strcmp(materiaCursor->nombre, materia) == 0) {
+                printf("Nombre: %s\n", cursor->nombre);
+                break;
+            }
+            materiaCursor = materiaCursor->proximo;
+        }
+        cursor = cursor->proximo;
+    }
+}
+
+//lista de alumnos anotados en la universidad
+void enlistarAlumnos(Alumno *lista) {
+    Alumno *cursor = lista;
+    printf("Lista de alumnos:\n");
+    while (cursor!= NULL) {
+        printf("Nombre: %s\n", cursor->nombre);
+        cursor = cursor->proximo;
+    }
+}
 
 //Buscar si el alumno esta dado de Alta
 void buscarAlumno(Alumno **lista, char* alumno) {
