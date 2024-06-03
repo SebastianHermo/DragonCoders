@@ -5,101 +5,140 @@
 #include "struct.c"
 
 //Dar de alta un Alumno
-altaAlumno(Alumno **lista, char alumno, int edad) {
+void altaAlumno(Alumno **lista, char alumno, int edad) {
     Alumno *nuevoNodo = malloc(sizeof(Alumno));
+    if (nuevoNodo == NULL) {
+        // Manejar error: no se pudo asignar memoria
+        printf("Error: no se pudo asignar memoria\n");
+        return;
+    }
+
+    nuevoNodo->nombre = alumno;
+    nuevoNodo->edad = edad;
     nuevoNodo->proximo = NULL;
+
     if (*lista == NULL) {
         *lista = nuevoNodo;
-        nuevoNodo ->alumno = alumno;
-        nuevoNodo ->edad = edad;
     } else {
         Alumno *cursor = *lista;
-        while (cursor->proximo != NULL) {
+        while (cursor->proximo!= NULL) {
             cursor = cursor->proximo;
         }
         cursor->proximo = nuevoNodo;
-    }   
+    }
 }
 
-//Dar de alta una Materia
-altaMateria(Materia **lista, char materia) {
+void altaMateria(Materia **lista, char materia) {
     Materia *nuevoNodo = malloc(sizeof(Materia));
-    nuevoNodo->proximo = NULL;
-    if (*lista == NULL) {
-        nuevoNodo->nombre = materia;
-        nuevoNodo->estado = false;
-        *lista = nuevoNodo;
+    if (nuevoNodo == NULL) {
+        // Manejar error: no se pudo asignar memoria
+        printf("Error: no se pudo asignar memoria\n");
+        return;
+    }
 
+    nuevoNodo->nombre = materia;
+    nuevoNodo->estado = false;
+    nuevoNodo->proximo = NULL;
+
+    if (*lista == NULL) {
+        *lista = nuevoNodo;
     } else {
         Materia *cursor = *lista;
         while (cursor->proximo != NULL) {
             cursor = cursor->proximo;
         }
-
         cursor->proximo = nuevoNodo;
     }
 }
 
 //Dar de baja a un Alumno
-bajaAlumno(Alumno **lista, char alumno){
-Alumno *cursor = *lista;
-        while (cursor->proximo->nombre != alumno && cursor->proximo != NULL) {
-            cursor = cursor->proximo;
-        }
-        if (cursor->proximo->nombre == alumno && cursor->proximo->proximo != NULL){
+void bajaAlumno(Alumno **lista, char alumno) {
+    Alumno *cursor = *lista;
+
+    // Verificar si el alumno a eliminar es el primero de la lista
+    if (cursor != NULL && cursor->nombre == alumno) {
+        Alumno *temp = cursor;
+        *lista = cursor->proximo;
+        free(temp);
+        return;
+    }
+
+    // Buscar el alumno a eliminar en la lista
+    while (cursor != NULL && cursor->proximo != NULL) {
+        if (cursor->proximo->nombre == alumno) {
             Alumno *temp = cursor->proximo;
             cursor->proximo = cursor->proximo->proximo;
             free(temp);
-
-        } else if (cursor->proximo->proximo == NULL && cursor->proximo->nombre == alumno)
-        {
-            cursor = cursor->proximo;      
-            cursor = NULL;
+            return;
         }
+        cursor = cursor->proximo;
     }
+}
 
 //dar de baja una Materia
-bajaMateria(Materia **lista, char materia){
-Materia *cursor = *lista;
-       while (cursor->proximo->nombre != materia && cursor->proximo != NULL) {
-            cursor = cursor->proximo;
-        }
-        if (cursor->proximo->nombre == materia && cursor->proximo->proximo != NULL){
-            Materia *temp = cursor->proximo;
-            cursor->proximo = cursor->proximo->proximo;
-            free(temp);
+void bajaMateria(Materia **lista, char materia) {
+    Materia *cursor = *lista;
+    Materia *temp;
 
-        } else if (cursor->proximo->proximo == NULL && cursor->proximo->nombre == materia)
-        {
-            cursor = cursor->proximo;      
-            cursor = NULL;
-        }
+    // Verificar si la materia a eliminar es la primera de la lista
+    if (cursor != NULL && cursor->nombre == materia) {
+        temp = cursor;
+        *lista = cursor->proximo;
+        free(temp);
+        return;
     }
 
+
+    // Buscar la materia a eliminar en la lista
+    while (cursor != NULL && cursor->proximo != NULL) {
+        if (cursor->proximo->nombre == materia) {
+            temp = cursor->proximo;
+            cursor->proximo = cursor->proximo->proximo;
+            free(temp);
+            return;
+
+        }
+        cursor = cursor->proximo;
+    }
+
+}
+
 //Modificar una materia en cuestion
-modificarMateria(Materia **lista, char materia){
+void modificarMateria(Materia **lista, char materia){
 Materia *cursor = *lista;
 
-    while (cursor->proximo->nombre != materia && cursor->proximo != NULL) {
-            cursor = cursor->proximo;
-        }
-    cursor = cursor->proximo;
+    while (cursor!= NULL && strcmp(cursor->nombre, materia)!= 0) {
+        cursor = cursor->proximo;
+    }   
+
+    if (cursor!= NULL) {
+        strcpy(cursor->nombre, materia);
+    } else {
+        printf("Materia no encontrada\n");
+    }
+    if (strcpy(cursor->nombre,materia) == 0)
+    {
+        char temp;
+        printf("Ingrese su nombre: ");
+        scanf("%s", temp);
+        cursor->nombre = temp;
+    }
     
 }
 
 //Modificar algun alumno en particular
-modificarAlumno(Alumno **lista, char materia){}
+void modificarAlumno(Alumno **lista, char materia){}
 
 //Hacer una lista de los alumnos de la materia
-enlistarAlumnos(Alumno **lista){}
+void enlistarAlumnos(Alumno **lista){}
 
 //Buscar si el alumno esta dado de Alta
-buscarAlumno(Alumno **lista, char alumno){}
+void buscarAlumno(Alumno **lista, char alumno){}
 
 //Buscar el alumno por la edad
-buscarAlumnoEdad(Alumno **lista, int edad){}
+void buscarAlumnoEdad(Alumno **lista, int edad){}
 
 //Anotar un alumno que esta dado de alta en la materia
-anotarseEnLaMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
+void anotarseEnLaMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
 
-rendirMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
+void rendirMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
