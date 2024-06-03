@@ -2,8 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct structNodo
-{
+
+typedef struct structNodo{
     struct structNodo proximo;
     char nombre;
 }Materia;
