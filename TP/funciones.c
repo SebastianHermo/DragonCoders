@@ -83,23 +83,35 @@ Materia *cursor2 = cursor;
     }
 
 //Modificar una materia en cuestion
-modificarMateria(Materia **lista,char materia ){
+modificarMateria(Materia **lista, char materia){
     
 }
 
 //Modificar algun alumno en particular
-modificarAlumno(Alumno **lista,char materia ){}
+modificarAlumno(Alumno **lista, char materia){
+
+}
 
 //Hacer una lista de los alumnos de la materia
-enlistarAlumnos(Alumno **lista){}
+enlistarAlumnos(Alumno **lista){
+    
+}
 
 //Buscar si el alumno esta dado de Alta
-buscarAlumno(Alumno **lista,char alumno ){}
+buscarAlumno(Alumno **lista, char alumno){
+
+}
 
 //Buscar el alumno por la edad
-buscarAlumnoEdad(Alumno **lista,int edad ){}
+buscarAlumnoEdad(Alumno **lista, int edad){
+
+}
 
 //Anotar un alumno que esta dado de alta en la materia
-anotarseEnLaMateria(Alumno **alumnos, Materia **materias,char alumno ,char materia ){}
+anotarseEnLaMateria(Alumno **alumnos, Materia **materias,char alumno ,char materia){
 
-rendirMateria(Alumno **alumnos, Materia **materias, char alumno, char materia ){}
+}
+
+rendirMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){
+
+}
