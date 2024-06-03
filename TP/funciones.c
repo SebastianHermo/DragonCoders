@@ -5,7 +5,7 @@
 #include "struct.c"
 
 //Dar de alta un Alumno
-void altaAlumno(Alumno **lista, char alumno, int edad) {
+void altaAlumno(Alumno **lista, char* alumno, int edad) {
     Alumno *nuevoNodo = malloc(sizeof(Alumno));
     if (nuevoNodo == NULL) {
         // Manejar error: no se pudo asignar memoria
@@ -28,7 +28,7 @@ void altaAlumno(Alumno **lista, char alumno, int edad) {
     }
 }
 
-void altaMateria(Materia **lista, char materia) {
+void altaMateria(Materia **lista, char* materia) {
     Materia *nuevoNodo = malloc(sizeof(Materia));
     if (nuevoNodo == NULL) {
         // Manejar error: no se pudo asignar memoria
@@ -52,7 +52,7 @@ void altaMateria(Materia **lista, char materia) {
 }
 
 //Dar de baja a un Alumno
-void bajaAlumno(Alumno **lista, char alumno) {
+void bajaAlumno(Alumno **lista, char* alumno) {
     Alumno *cursor = *lista;
 
     // Verificar si el alumno a eliminar es el primero de la lista
@@ -76,7 +76,7 @@ void bajaAlumno(Alumno **lista, char alumno) {
 }
 
 //dar de baja una Materia
-void bajaMateria(Materia **lista, char materia) {
+void bajaMateria(Materia **lista, char* materia) {
     Materia *cursor = *lista;
     Materia *temp;
 
@@ -104,7 +104,7 @@ void bajaMateria(Materia **lista, char materia) {
 }
 
 //Modificar una materia en cuestion
-void modificarMateria(Materia **lista, char materia){
+void modificarMateria(Materia **lista, char* materia){
 Materia *cursor = *lista;
 
     while (cursor!= NULL && strcmp(cursor->nombre, materia)!= 0) {
@@ -118,27 +118,64 @@ Materia *cursor = *lista;
     }
     if (strcpy(cursor->nombre,materia) == 0)
     {
-        char temp;
+        char* temp;
         printf("Ingrese su nombre: ");
         scanf("%s", temp);
         cursor->nombre = temp;
-    }
-    
+    }  
 }
 
 //Modificar algun alumno en particular
-void modificarAlumno(Alumno **lista, char materia){}
+void modificarAlumno(Alumno **lista, char* materia){
+Alumno *cursor = *lista;
+
+while (cursor!= NULL && strcmp(cursor->nombre, materia)!= 0) {
+    cursor = cursor->proximo;
+}   
+
+if (cursor!= NULL) {
+    strcpy(cursor->nombre, materia);
+} else {
+    printf("Materia no encontrada\n");
+}
+if (strcpy(cursor->nombre,materia) == 0){
+    char* temp;
+    printf("Ingrese su nombre: ");
+    scanf("%s", temp);
+    cursor->nombre = temp;
+    }  
+}
 
 //Hacer una lista de los alumnos de la materia
 void enlistarAlumnos(Alumno **lista){}
 
 //Buscar si el alumno esta dado de Alta
-void buscarAlumno(Alumno **lista, char alumno){}
+void buscarAlumno(Alumno **lista, char* alumno) {
+for (int i = 0; lista[i]!= NULL; i++) {
+    if (strcmp(lista[i]->nombre, alumno) == 0) {
+        printf("El alumno %s está dado de alta.\n", alumno);
+        return;
+    }
+}
+printf("El alumno %s no está dado de alta.\n", alumno);
+}
 
-//Buscar el alumno por la edad
-void buscarAlumnoEdad(Alumno **lista, int edad){}
+//Buscar el alumno por la edad y devolver los alumnos de dicha edad
+void buscarAlumnoEdad(Alumno **lista, int edad) {
+    int encontrado = 0;
+    printf("Alumnos de %d años:\n", edad);
+    for (int i = 0; lista[i]!= NULL; i++) {
+        if (lista[i]->edad == edad) {
+            printf("%s (%d años)\n", lista[i]->nombre, lista[i]->edad);
+            encontrado = 1;
+        }
+    }
+    if (!encontrado) {
+        printf("No se encontraron alumnos de %d años.\n", edad);
+    }
+}
 
 //Anotar un alumno que esta dado de alta en la materia
-void anotarseEnLaMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
+void anotarseEnLaMateria(Alumno **alumnos, Materia **materias, char* alumno, char* materia){}
 
-void rendirMateria(Alumno **alumnos, Materia **materias, char alumno, char materia){}
+void rendirMateria(Alumno **alumnos, Materia **materias, char* alumno, char* materia){}

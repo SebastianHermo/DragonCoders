@@ -5,12 +5,12 @@
 
 typedef struct NodoMateria {
     struct NodoMateria *proximo;
-    char nombre[100];
+    char* nombre;
     bool estado;
 } Materia;
 
 typedef struct NodoAlumno {
     struct NodoAlumno *proximo;
-    char nombre[100];
+    char* nombre;
     int edad;
 } Alumno;
