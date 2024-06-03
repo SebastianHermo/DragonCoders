@@ -3,15 +3,13 @@
 #include <string.h>
 
 typedef struct structNodo{
-    ///@brief
-    struct structNodo proximo;
+    struct structNodo *proximo;
     char nombre;
     bool estado;
 }Materia;
 
-typedef struct structNodo {
-    /// @brief 
-    struct structNodo proximo;
+typedef struct structNodo { 
+    struct structNodo *proximo;
     char alumno;
     int edad;
 } Alumno;
