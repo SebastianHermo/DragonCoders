@@ -28,6 +28,7 @@ void altaAlumno(Alumno **lista, char* alumno, int edad) {
     }
 }
 
+//Dar de alta una materia
 void altaMateria(Materia **lista, char* materia) {
     Materia *nuevoNodo = malloc(sizeof(Materia));
     if (nuevoNodo == NULL) {
@@ -37,8 +38,10 @@ void altaMateria(Materia **lista, char* materia) {
     }
 
     nuevoNodo->nombre = materia;
-    nuevoNodo->estado = false;
+    nuevoNodo->estado = 0;
     nuevoNodo->proximo = NULL;
+    nuevoNodo->nota = 0;
+    nuevoNodo->regularidad = 0;
 
     if (*lista == NULL) {
         *lista = nuevoNodo;
