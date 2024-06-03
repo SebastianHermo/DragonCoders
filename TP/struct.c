@@ -6,11 +6,11 @@
 typedef struct structNodo{
     struct structNodo proximo;
     char nombre;
+    bool estado;
 }Materia;
 
 typedef struct structNodo { 
     struct structNodo proximo;
     char alumno;
     int edad;
-    Materia bool estado;
 } Alumno;
