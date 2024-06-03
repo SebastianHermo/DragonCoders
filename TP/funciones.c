@@ -12,6 +12,8 @@ altaAlumno(Alumno **lista,char alumno ,int edad ) {
         *lista = nuevoNodo;
         nuevoNodo ->alumno = alumno;
         nuevoNodo ->edad = edad;
+        nuevoNodo ->alumno = alumno;
+        nuevoNodo ->edad = edad;
     } else {
         Alumno *cursor = *lista;
         while (cursor->proximo != NULL) {
