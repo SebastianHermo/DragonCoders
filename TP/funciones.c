@@ -8,8 +8,7 @@
 void altaAlumno(Alumno **lista, char* alumno, int edad) {
     Alumno *nuevoNodo = malloc(sizeof(Alumno));
     if (nuevoNodo == NULL) {
-        // Manejar error: no se pudo asignar memoria
-        printf("Error: no se pudo asignar memoria\n");
+        printf("Error: no se pudo asignar el estudiante\n");
         return;
     }
 
@@ -32,8 +31,7 @@ void altaAlumno(Alumno **lista, char* alumno, int edad) {
 void altaMateria(Materia **lista, char* materia) {
     Materia *nuevoNodo = malloc(sizeof(Materia));
     if (nuevoNodo == NULL) {
-        // Manejar error: no se pudo asignar memoria
-        printf("Error: no se pudo asignar memoria\n");
+        printf("Error: no se pudo asignar la materia\n");
         return;
     }
 
