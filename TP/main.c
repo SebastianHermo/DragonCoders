@@ -1,23 +1,22 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "funciones.c"
 #include "menu.c"
-#include "struct.c"
+#include "funciones.c"
 
 void loadingBar();
 void menu();
-void altaAlumno();
-void altaMateria();
-void bajaAlumno();
-void bajaMateria();
-void modificarMateria();
-void modificarAlumno();
-void enlistarAlumnosSegunLaMateria();
-void enlistarAlumnos();
-void buscarAlumno();
-void buscarAlumnoEdad();
-void editarMateriaDelAlumno();
-void imprimerMateriasDelAlumno();
+void altaAlumno(Alumno **lista, char* alumno, int edad);
+void altaMateria(Materia **lista, char* materia);
+void bajaAlumno(Alumno ** lista, char* alumno);
+void bajaMateria(Materia **lista, char* materia);
+void modificarMateria(Materia **lista, char *materia);
+void modificarAlumno(Alumno **lista, char* alumno);
+void enlistarAlumnosSegunLaMateria(Alumno **lista, char* materia);
+void enlistarAlumnos(Alumno *lista);
+void buscarAlumno(Alumno **lista, char* alumno);
+void buscarAlumnoEdad(Alumno **lista, int edad);
+void editarMateriaDelAlumno(Alumno* alumno, char* nombreMateria, float nota, int regularidad);
+void imprimirMateriasDelAlumno(Alumno* alumno);
 
 
 int main() {
