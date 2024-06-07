@@ -1,5 +1,19 @@
 #include <stdio.h>
 #include <unistd.h>
+#include "funciones.c"
+
+void loadingBar();
+void menu();
+void menuBasico();
+
+int main() {
+    loadingBar();
+
+    printf("\n\n");
+
+    menu();
+    return 0;
+}
 
 void loadingBar() {
     // Carácter para la barra de carga
@@ -34,49 +48,54 @@ void loadingBar() {
 }
 
 void menu() {
-   
-    int option;
+    printf("Bienvenido/s al Gestor de Alumnos por DragonCoders.\n\n"
+           "Para comenzar a utilizar el sistema, deberás cargar la información del primer alumno:\n\n");
 
-    
-    printf("Gestor de alumnos");
-    printf("\n\n");
-    
-    printf("0. Salir \n");
-    printf("1. Alumnos \n");
-    printf("2. Materias \n\n");
-    printf("Ingrese su opcion: \n");
+    char nombre [20];
+    int edad;
+    printf("Ingrese el nombre y la edad del Alumno que desea cargar (solo nombre y edad): \n");
+    scanf("%s %d", nombre, &edad);
 
-    scanf("\n%d", &option);
+    /*AltaAlumno(nombre,edad);*/
 
+    printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar.\n\n");
 
-    switch (option){
-    
-    case 0:
-        printf("==========");
-        printf("\n");
-        printf("Hasta luego");
-        printf("\n");
-        printf("==========");
-        return;
-    case 1:
-        //opcionAlumnos();
-        break;
-    
-    default:
-        printf("Opcion invalida");
-        }
-    
-    }
+    menuBasico();
 
-void opcionAlumnos(){
-    printf("======");
-    
 }
 
+void menuBasico(){
 
-int main() {
-    
-    loadingBar();
-    menu();
-    return 0;
+    printf("Seleccione a continuación la opción que desee utilizar\n");
+    printf("1. Dar de alta un alumno\n"
+           "2. Dar de baja un alumno\n"
+           "3. Dar de alta una materia\n"
+           "4. Dar de baja una materia\n"
+           "5. Modificar datos de alumno\n"
+           "6. Modificar datos de una materia\n");
+
+    int opcion;
+    scanf("%d", &opcion);
+
+    switch (opcion) {
+        case 1:
+            printf("\nFausto no hizo el código todavía");
+            break;
+        case 2:
+            printf("\nFausto no hizo el código todavía");
+            break;
+        case 3:
+            printf("\nFausto no hizo el código todavía");
+            break;
+        case 4:
+            printf("\nFausto no hizo el código todavía");
+            break;
+        case 5:
+            printf("\nFausto no hizo el código todavía");
+            break;
+        case 6:
+            printf("\nFausto no hizo el código todavía");
+            break;
+    }
+
 }
