@@ -2,10 +2,23 @@
 #include <unistd.h>
 #include "funciones.c"
 #include "menu.c"
+#include "struct.c"
 
 void loadingBar();
 void menu();
-void menuBasico();
+void altaAlumno();
+void altaMateria();
+void bajaAlumno();
+void bajaMateria();
+void modificarMateria();
+void modificarAlumno();
+void enlistarAlumnosSegunLaMateria();
+void enlistarAlumnos();
+void buscarAlumno();
+void buscarAlumnoEdad();
+void editarMateriaDelAlumno();
+void imprimerMateriasDelAlumno();
+
 
 int main() {
     loadingBar();

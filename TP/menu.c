@@ -2,24 +2,7 @@
 #include <malloc.h>
 #include "funciones.c"
 
-void menu() {
-    printf("Bienvenido/s al Gestor de Alumnos por DragonCoders.\n\n"
-           "Para comenzar a utilizar el sistema, deberás cargar la información del primer alumno:\n\n");
-
-    char nombre [20];
-    int edad;
-    printf("Ingrese el nombre y la edad del Alumno que desea cargar (solo nombre y edad): \n");
-    scanf("%s %d", nombre, &edad);
-
-    /*AltaAlumno(nombre,edad);*/
-
-    printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar.\n\n");
-
-    menuBasico();
-
-}
-
-void menuBasico(){
+void menu(){
 
     printf("Seleccione a continuación la opción que desee utilizar\n");
     printf("1. Dar de alta un alumno\n"
