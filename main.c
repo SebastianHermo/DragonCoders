@@ -33,7 +33,50 @@ void loadingBar() {
     printf("]\n");
 }
 
+void menu() {
+   
+    int option;
+
+    
+    printf("Gestor de alumnos");
+    printf("\n\n");
+    
+    printf("0. Salir \n");
+    printf("1. Alumnos \n");
+    printf("2. Materias \n\n");
+    printf("Ingrese su opcion: \n");
+
+    scanf("\n%d", &option);
+
+
+    switch (option){
+    
+    case 0:
+        printf("==========");
+        printf("\n");
+        printf("Hasta luego");
+        printf("\n");
+        printf("==========");
+        return;
+    case 1:
+        //opcionAlumnos();
+        break;
+    
+    default:
+        printf("Opcion invalida");
+        }
+    
+    }
+
+void opcionAlumnos(){
+    printf("======");
+    
+}
+
+
 int main() {
+    
     loadingBar();
+    menu();
     return 0;
 }
