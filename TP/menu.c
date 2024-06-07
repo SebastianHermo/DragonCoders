@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <malloc.h>
-#include "funciones.c"
+//#include "funciones.c"
 
 void menu(){
 
-    printf("Seleccione a continuación la opción que desee utilizar\n");
+    printf("Seleccione a continuacion la opcion que desee utilizar\n");
     printf("1. Dar de alta un alumno\n"
            "2. Dar de baja un alumno\n"
            "3. Dar de alta una materia\n"
@@ -17,22 +17,22 @@ void menu(){
 
     switch (opcion) {
         case 1:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
         case 2:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
         case 3:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
         case 4:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
         case 5:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
         case 6:
-            printf("\nFausto no hizo el código todavía");
+            printf("\nFausto no hizo el codigo todavia");
             break;
     }
 
