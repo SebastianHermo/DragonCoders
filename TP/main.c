@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "funciones.c"
+#include <signal.h>
+#include "menu.c"
 
 void loadingBar();
 void menu();
-void menuBasico();
 
-int main() {
+int main(){
     loadingBar();
 
     printf("\n\n");
@@ -15,12 +15,20 @@ int main() {
     return 0;
 }
 
+volatile sig_atomic_t cancel_loading = 0;
+
+
+void signal_handler(int sig) {
+    cancel_loading = 1;
+}
+
 void loadingBar() {
     // Carácter para la barra de carga
     char a = '#';
 
     printf("\n\n\n\n");
     printf("Inicializando el GestorDeALumnos, por favor aguarde un momento...\n\n");
+    printf("Presione Ctrl+C para cancelar\n");
     printf("[");
 
     // Tamaño de la barra de carga
@@ -36,6 +44,9 @@ void loadingBar() {
     // Volver al inicio de la barra de carga
     printf("\r");
     printf("\t\t\t\t[");
+
+    // Instalar manejador de señal para Ctrl+C
+    signal(SIGINT, signal_handler);
 
     // Imprimir barra de carga con progreso
     for (int i = 0; i < barLength; i++) {

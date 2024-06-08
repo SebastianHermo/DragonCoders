@@ -3,7 +3,7 @@
 #include <string.h>
 
 // Estructura de nodo para el alumno
-typedef struct Alumno {
+typedef struct primerNodo {
     char* nombre;
     int edad;
     struct Materia* materias; // lista de materias individuales
@@ -11,7 +11,7 @@ typedef struct Alumno {
 } Alumno;
 
 // Estructura de nodo para la materia
-typedef struct Materia {
+typedef struct segundoNodo {
     char* nombre;
     int estado; // 0 = no aprobado, 1 = aprobado
     float nota;
