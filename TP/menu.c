@@ -36,7 +36,7 @@ void menu(){
             printf("\nFausto no hizo el código todavía");
             break;
         case 7:
-            despedida();
+           void despedida();
     }
 }
 
