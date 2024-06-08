@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
-#include <ctime>
+#include <time.h>
 
 void menu(){
 
