@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "funciones.c"
+#include "funciones.h"
 
 void loadingBar();
 void menu();
@@ -112,13 +112,13 @@ void menuGestionAlumnos(){
         switch (opcion) {
             case 1:
                 printf("\nFausto no hizo el código todavía\n");
-                menuBasico();
+
                 case 2:
                     printf("\nFausto no hizo el código todavía\n");
-                    menuBasico();
+
                     case 3:
                         printf("\nFausto no hizo el código todavía\n");
-                    menuBasico();
+
                         case 4:
                             menuBasico();
                             break;
@@ -147,15 +147,15 @@ void menuGestionMaterias(){
         switch (opcion) {
             case 1:
                 printf("\nFausto no hizo el código todavía.\n");
-                menuBasico();
+
             case 2:
                 printf("\nFausto no hizo el código todavía.\n");
-                menuBasico();
+
             case 3:
                 printf("\nFausto no hizo el código todavía.\n");
-                menuBasico();
+
             case 4:
-                menuBasico();
+
                 break;
 
         }
