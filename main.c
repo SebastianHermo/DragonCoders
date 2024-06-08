@@ -5,6 +5,10 @@
 void loadingBar();
 void menu();
 void menuBasico();
+void menuBasico2(int);
+void menuGestionAlumnos();
+void menuGestionMaterias();
+
 
 int main() {
     loadingBar();
@@ -16,35 +20,26 @@ int main() {
 }
 
 void loadingBar() {
-    // Carácter para la barra de carga
-    char a = '#';
 
-    printf("\n\n\n\n");
-    printf("Inicializando el GestorDeALumnos, por favor aguarde un momento...\n\n");
-    printf("[");
-
-    // Tamaño de la barra de carga
-    int barLength = 30;
-
-    // Imprimir barra de carga vacía
-    for (int i = 0; i < barLength; i++) {
-        printf("-");
+    int i;
+    //    printf("\n\n\n\n");
+    printf("\n\n\t\t\tLoading...\n\n");
+    printf("\t\t\t\t\t["); // Corchete de apertura
+    for (i = 0; i < 26; i++) {
+        printf("%c", 177);
+        fflush(stdout);
+        usleep(100000); // 100ms delay
     }
-
-    printf("]");
-
-    // Volver al inicio de la barra de carga
+    printf("]"); // Corchete de cierre para la primera barra
     printf("\r");
-    printf("\t\t\t\t[");
-
-    // Imprimir barra de carga con progreso
-    for (int i = 0; i < barLength; i++) {
-        printf("%c", a);
-        fflush(stdout); // Asegurarse de que se imprime inmediatamente
-        usleep(100000); // Pausa de 100 ms
+    printf("\t\t\t\t\t["); // Corchete de apertura
+    for (i = 0; i < 26; i++) {
+        printf("%c", 219);
+        fflush(stdout);
+        usleep(100000); // 100ms delay
     }
+    printf("]"); // Corchete de cierre para la segunda barra
 
-    printf("]\n");
 }
 
 void menu() {
@@ -53,12 +48,14 @@ void menu() {
 
     char nombre [20];
     int edad;
-    printf("Ingrese el nombre y la edad del Alumno que desea cargar (solo nombre y edad): \n");
-    scanf("%s %d", nombre, &edad);
+    printf("Ingrese el nombre de pila del Alumno que desea cargar: \n");
+    scanf("%s", nombre);
+    printf("Perfecto, a continuación ingrese la edad de dicho alumno : \n");
+    scanf("%d", &edad);
 
     /*AltaAlumno(nombre,edad);*/
 
-    printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar.\n\n");
+    printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar, a partir de distintas funciones para los alumnos y sus respectivas materias cursadas o en curso.\n\n");
 
     menuBasico();
 
@@ -66,36 +63,101 @@ void menu() {
 
 void menuBasico(){
 
+    int opcion;
+
+    printf("1. Alumnos\n");
+    printf("2. Materias\n");
+    printf("3. Cerrar el sistema\n");
+
+    scanf("%d", &opcion);
+    menuBasico2(opcion);
+}
+
+void menuBasico2(int opcion) {
+
+    if (opcion < 1 || opcion > 3) {
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
+        menuBasico();
+    } else {
+        switch (opcion) {
+            case 1:
+                menuGestionAlumnos();
+                break;
+            case 2:
+                menuGestionMaterias();
+                break;
+            case 3:
+               break;
+        }
+    }
+}
+
+void menuGestionAlumnos(){
+
     printf("Seleccione a continuación la opción que desee utilizar\n");
+
     printf("1. Dar de alta un alumno\n"
-           "2. Dar de baja un alumno\n"
-           "3. Dar de alta una materia\n"
-           "4. Dar de baja una materia\n"
-           "5. Modificar datos de alumno\n"
-           "6. Modificar datos de una materia\n");
+           "2. Dar de baja un alumno \n"
+           "3. Modificar datos de alumno\n"
+           "4. Volver al menú principal\n");
+
 
     int opcion;
     scanf("%d", &opcion);
 
-    switch (opcion) {
-        case 1:
-            printf("\nFausto no hizo el código todavía");
-            break;
-        case 2:
-            printf("\nFausto no hizo el código todavía");
-            break;
-        case 3:
-            printf("\nFausto no hizo el código todavía");
-            break;
-        case 4:
-            printf("\nFausto no hizo el código todavía");
-            break;
-        case 5:
-            printf("\nFausto no hizo el código todavía");
-            break;
-        case 6:
-            printf("\nFausto no hizo el código todavía");
-            break;
+    if (opcion < 1 || opcion > 4){
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
+        menuGestionAlumnos();
+    } else {
+        switch (opcion) {
+            case 1:
+                printf("\nFausto no hizo el código todavía\n");
+                menuBasico();
+                case 2:
+                    printf("\nFausto no hizo el código todavía\n");
+                    menuBasico();
+                    case 3:
+                        printf("\nFausto no hizo el código todavía\n");
+                    menuBasico();
+                        case 4:
+                            menuBasico();
+                            break;
+        }
     }
+}
 
+void menuGestionMaterias(){
+
+    printf("Seleccione a continuación la opción que desee utilizar\n");
+
+    printf("1. Dar de alta una materia\n"
+           "2. Dar de baja una materia \n"
+           "3. Modificar datos de una materia\n"
+           "4. Volver al menú principal\n");
+
+    int opcion;
+    scanf("%d", &opcion);
+
+    if (opcion < 1 || opcion > 4){
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
+        menuGestionMaterias();
+
+    } else {
+
+        switch (opcion) {
+            case 1:
+                printf("\nFausto no hizo el código todavía.\n");
+                menuBasico();
+            case 2:
+                printf("\nFausto no hizo el código todavía.\n");
+                menuBasico();
+            case 3:
+                printf("\nFausto no hizo el código todavía.\n");
+                menuBasico();
+            case 4:
+                menuBasico();
+                break;
+
+        }
+    }
 }
