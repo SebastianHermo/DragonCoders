@@ -3,8 +3,10 @@
 #include <time.h>
 #include <stdlib.h>
 
-void menu(){
+void despedida();   
 
+void menu(){
+    int opcion;
     printf("Seleccione a continuación la opción que desee utilizar\n");
     printf("1. Dar de alta un alumno\n"
            "2. Dar de baja un alumno\n"
@@ -13,9 +15,7 @@ void menu(){
            "5. Modificar datos de alumno\n"
            "6. Modificar datos de una materia\n"
            "7. Salir\n");
-
-    int opcion;
-    scanf("%d", &opcion);
+    scanf("%1d", &opcion);
 
     switch (opcion) {
         case 1:
@@ -37,11 +37,12 @@ void menu(){
             printf("\nFausto no hizo el código todavía");
             break;
         case 7:
-           void despedida();
+        despedida();
+        break;           
     }
 }
 
-    void despedida(){
+void despedida(){
     time_t now = time(NULL);        
     struct tm *tm = localtime(&now);
     int hour = tm->tm_hour;
@@ -55,11 +56,16 @@ void menu(){
     }
     printf("%s, gracias por utilizar nuestra aplicación.\n", greeting);
     printf("Esperamos que hayas disfrutado de nuestra aplicación. ¡Hasta luego!\n");
+    printf("Presione enter para salir...\n");
+    getchar(); // Esperar a que el usuario presione una tecla
 
-    // Cerrar la consola
-    #ifdef _WIN32
-        system("exit"); // Para Windows
-    #else
-        system("clear"); // Para Linux y macOS
-    #endif
-}
+    int c;
+    if ((c = getchar()) != EOF) {
+        // Cerrar la consola
+        #ifdef _WIN32
+            system("exit"); // Para Windows
+        #else
+            system("clear"); // Para Linux y macOS
+        #endif
+    }
+}                                   

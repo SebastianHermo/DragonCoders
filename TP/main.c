@@ -3,7 +3,6 @@
 #include <signal.h>
 #include "menu.c"
 
-void signal_handler(int sig);
 void loadingBar();
 void menu();
 
