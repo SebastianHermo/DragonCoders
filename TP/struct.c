@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+#ifndef STRUCT.C
+#define STRUCT.C
 // Estructura de nodo para el alumno
 typedef struct primerNodo {
     char* nombre;
@@ -18,3 +20,5 @@ typedef struct segundoNodo {
     int regularidad; // 0 = irregular, 1 = regular
     struct Materia* proximo;
 } Materia;
+
+#endif
