@@ -25,8 +25,8 @@ void menu(Alumno *listaAlumno, Materia *listaMateria)
 
     if (opcion < 1 || opcion > 3)
     {
-        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-        menu(listaAlumno, listaMateria);
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+        menu(listaAlumno, listaMateria); // Vuelve al menú principal
     }
     else
         switch (opcion)
@@ -55,14 +55,14 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
            "6. Volver al menú principal\n");
 
     int opcion;
-    scanf("%d", &opcion);
+    scanf("%1d", &opcion);
 
-    while (opcion < 1 || opcion > 6)
+    if (opcion < 1 || opcion > 3)
     {
-        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-        scanf("%d", &opcion);
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+        menu(listaAlumno, listaMateria); // Vuelve al menú principal
     }
-    {
+    else
         switch (opcion)
         {
         case 1:
@@ -90,41 +90,42 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             printf("Ingrese que tipo de modificacion desee hacer\n");
             scanf("%1d", &opcion);
 
-            while (opcion < 1 || opcion > 4)
+            if (opcion < 1 || opcion > 3)
             {
-                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-                scanf("%d", &opcion);
+                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+                menu(listaAlumno, listaMateria); // Vuelve al menú principal
             }
-            switch (opcion)
-            {
-            case 1:
-                printf("Ingrese el nombre actual del alumno, su nuevo nombre y su nueva edad\n");
-                scanf("%s %s %d", alumno, nuevoNombre, &nuevaEdad);
-                modificarAlumno(listaAlumno, alumno, nuevoNombre, nuevaEdad);
-                printf("El nombre fue cambiado con exito\n");
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 2:
-                printf("Segun las materias de a continuacion:\n");
-                imprimirMaterias(listaMateria);
-                printf("Ingrese el alumno, la materia y la nota\n");
-                scanf("%s %s %d", alumno, materia, nota);
-                editarNotaDelAlumno(listaAlumno, alumno, materia, nota);
-                printf("La nota ya fue modificada");
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 3:
-                printf("Segun las materias de a continuacion:\n");
-                imprimirMaterias(listaMateria);
-                printf("Ingrese el alumno que quiere agregar su materia\n");
-                scanf("%s", alumno);
-                agregarMateriaAlumno(listaAlumno, alumno);
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 4:
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            }
+            else
+                switch (opcion)
+                {
+                case 1:
+                    printf("Ingrese el nombre actual del alumno, su nuevo nombre y su nueva edad\n");
+                    scanf("%s %s %d", alumno, nuevoNombre, &nuevaEdad);
+                    modificarAlumno(listaAlumno, alumno, nuevoNombre, nuevaEdad);
+                    printf("El nombre fue cambiado con exito\n");
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 2:
+                    printf("Segun las materias de a continuacion:\n");
+                    imprimirMaterias(listaMateria);
+                    printf("Ingrese el alumno, la materia y la nota\n");
+                    scanf("%s %s %d", alumno, materia, nota);
+                    editarNotaDelAlumno(listaAlumno, alumno, materia, nota);
+                    printf("La nota ya fue modificada");
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 3:
+                    printf("Segun las materias de a continuacion:\n");
+                    imprimirMaterias(listaMateria);
+                    printf("Ingrese el alumno que quiere agregar su materia\n");
+                    scanf("%s", alumno);
+                    agregarMateriaAlumno(listaAlumno, alumno);
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 4:
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                }
             break;
         case 4:
             printf("Seleccione a continuacion la opcion que desee utilizar\n");
@@ -132,48 +133,52 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
                    "2. Enlistar a todos los alumnos activos\n"
                    "3. Enlistar las materias de un alumno\n"
                    "4. Volver al menu de Gestiones de Alumnos\n");
-            scanf("%d", &opcion);
-            while (opcion < 1 || opcion > 4)
+            scanf("%1d", &opcion);
+
+            if (opcion < 1 || opcion > 3)
             {
-                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-                scanf("%d", &opcion);
+                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+                menu(listaAlumno, listaMateria); // Vuelve al menú principal
             }
-            switch (opcion)
-            {
-            case 1:
-                printf("Ingrese la materia que quiere enlistar de las que se muestran a continuacion");
-                imprimirMaterias(listaMateria);
-                scanf("%s", materia);
-                enlistarAlumnosRegulares(listaAlumno, materia);
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 2:
-                printf("A continuacion se enlistaran todos los alumnos activos\n");
-                enlistarAlumnos(listaAlumno);
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 3:
-                printf("Ingrese el alumno a quien quiere ver sus materias");
-                scanf("%s", alumno);
-                imprimirMateriasDelAlumno(listaAlumno, alumno);
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            case 4:
-                menuGestionAlumnos(listaAlumno, listaMateria);
-                break;
-            }
+            else
+                switch (opcion)
+                {
+                case 1:
+                    printf("Ingrese la materia que quiere enlistar de las que se muestran a continuacion");
+                    imprimirMaterias(listaMateria);
+                    scanf("%s", materia);
+                    enlistarAlumnosRegulares(listaAlumno, materia);
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 2:
+                    printf("A continuacion se enlistaran todos los alumnos activos\n");
+                    enlistarAlumnos(listaAlumno);
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 3:
+                    printf("Ingrese el alumno a quien quiere ver sus materias");
+                    scanf("%s", alumno);
+                    imprimirMateriasDelAlumno(listaAlumno, alumno);
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                case 4:
+                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    break;
+                }
             break;
         case 5:
             printf("Seleccione a continuacion la opcion que desee utilizar\n");
             printf("1. Buscar alumno en especifico\n"
                    "2. Buscar alumno por edad\n"
                    "3. Volver al menu de Gestiones de Alumnos\n");
-            scanf("%d", &opcion);
-            while (opcion < 1 || opcion > 3)
+            scanf("%1d", &opcion);
+
+            if (opcion < 1 || opcion > 3)
             {
-                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-                scanf("%d", &opcion);
+                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+                menu(listaAlumno, listaMateria); // Vuelve al menú principal
             }
+            else
             {
                 switch (opcion)
                 {
@@ -199,8 +204,8 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             menu(listaAlumno, listaMateria);
             break;
         }
-    }
 }
+
 void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
 {
 
@@ -212,15 +217,14 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
            "4. Volver al menú principal\n");
 
     int opcion;
-    scanf("%d", &opcion);
+    scanf("%1d", &opcion);
 
-    while (opcion < 1 || opcion > 4)
+    if (opcion < 1 || opcion > 3)
     {
-        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
-        scanf("%d", &opcion);
+        printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
+        menu(listaAlumno, listaMateria); // Vuelve al menú principal
     }
-    {
-
+    else
         switch (opcion)
         {
         case 1:
@@ -257,7 +261,6 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
             menu(listaAlumno, listaMateria);
             break;
         }
-    }
 }
 
 void despedida()
