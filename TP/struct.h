@@ -5,7 +5,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 // Estructura de nodo para el alumno
-typedef struct primerNodo
+typedef struct Alumno
 {
     char *nombre;
     int edad;
@@ -14,7 +14,7 @@ typedef struct primerNodo
 } Alumno;
 
 // Estructura de nodo para la materia
-typedef struct segundoNodo
+typedef struct Materia
 {
     char *nombre;
     int estado; // 0 = no aprobado, 1 = aprobado
@@ -23,4 +23,4 @@ typedef struct segundoNodo
     struct Materia *proximo;
 } Materia;
 
-#endif
+#endif;

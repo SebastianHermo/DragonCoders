@@ -9,7 +9,7 @@ Materia *buscarMateria(Materia *materias, char *nombreMateria);
 int buscarAlumno(Alumno *listaAlumnos, char *nombre);
 
 // Dar de alta un Alumno
-void altaAlumno(Alumno **lista, char *alumno, int edad)
+void altaAlumno(Alumno *lista, char *alumno, int edad)
 {
     Alumno *nuevo = (Alumno *)malloc(sizeof(Alumno));
     nuevo->nombre = (char *)malloc(strlen(alumno) + 1);
@@ -18,13 +18,13 @@ void altaAlumno(Alumno **lista, char *alumno, int edad)
     nuevo->materias = NULL;
     nuevo->proximo = NULL;
 
-    if (*lista == NULL)
+    if (lista == NULL)
     {
-        *lista = nuevo;
+        lista = nuevo;
     }
     else
     {
-        Alumno *actual = *lista;
+        Alumno *actual = lista;
         while (actual->proximo != NULL)
         {
             actual = actual->proximo;
@@ -34,7 +34,7 @@ void altaAlumno(Alumno **lista, char *alumno, int edad)
 }
 
 // Dar de alta una materia
-void altaMateria(Materia **lista, char *materia)
+void altaMateria(Materia *lista, char *materia)
 {
     Materia *nuevo = (Materia *)malloc(sizeof(Materia));
     nuevo->nombre = (char *)malloc(strlen(materia) + 1);
@@ -44,13 +44,13 @@ void altaMateria(Materia **lista, char *materia)
     nuevo->nota = 0;
     nuevo->regularidad = 0;
 
-    if (*lista == NULL)
+    if (lista == NULL)
     {
-        *lista = nuevo;
+        lista = nuevo;
     }
     else
     {
-        Materia *actual = *lista;
+        Materia *actual = lista;
         while (actual->proximo != NULL)
         {
             actual = actual->proximo;
@@ -60,15 +60,15 @@ void altaMateria(Materia **lista, char *materia)
 }
 
 // Dar de baja a un Alumno
-void bajaAlumno(Alumno **lista, char *alumno)
+void bajaAlumno(Alumno *lista, char *alumno)
 {
-    if (*lista == NULL)
+    if (lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = *lista;
+    Alumno *actual = lista;
     Alumno *anterior = NULL;
 
     while (actual != NULL && strcmp(actual->nombre, alumno) != 0)
@@ -85,7 +85,7 @@ void bajaAlumno(Alumno **lista, char *alumno)
 
     if (anterior == NULL)
     {
-        *lista = actual->proximo;
+        lista = actual->proximo;
     }
     else
     {
@@ -97,16 +97,16 @@ void bajaAlumno(Alumno **lista, char *alumno)
 }
 
 // dar de baja una Materia
-void bajaMateria(Materia **lista, char *materia)
+void bajaMateria(Materia *lista, char *materia)
 {
-    if (*lista == NULL)
+    if (lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = *lista;
-    Alumno *anterior = NULL;
+    Materia *actual = lista;
+    Materia *anterior = NULL;
 
     while (actual != NULL && strcmp(actual->nombre, materia) != 0)
     {
@@ -122,7 +122,7 @@ void bajaMateria(Materia **lista, char *materia)
 
     if (anterior == NULL)
     {
-        *lista = actual->proximo;
+        lista = actual->proximo;
     }
     else
     {
@@ -135,15 +135,15 @@ void bajaMateria(Materia **lista, char *materia)
 
 /*Modificar una materia en cuestion ya existente
  */
-void modificarMateria(Materia **lista, char *nombre, char *nuevoNombre)
+void modificarMateria(Materia *lista, char *nombre, char *nuevoNombre)
 {
-    if (*lista == NULL)
+    if (lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Materia *actual = *lista;
+    Materia *actual = lista;
 
     while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
     {
@@ -212,15 +212,15 @@ void modificarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nomb
 /*Modificar algun alumno en particular ya existente,
   si no quieres editar los nuevos puedes dejarlos vacios
 */
-void modificarAlumno(Alumno **lista, char *nombre, char *nuevoNombre, int nuevaEdad)
+void modificarAlumno(Alumno *lista, char *nombre, char *nuevoNombre, int nuevaEdad)
 {
-    if (*lista == NULL)
+    if (lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = *lista;
+    Alumno *actual = lista;
 
     while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
     {
@@ -381,7 +381,7 @@ void agregarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno)
 Materia *obtenerMateriasNoInscriptas(Alumno *alumno)
 {
     Materia *materiasNoInscriptas = NULL;
-    Alumno *materiaActual = alumno->materias;
+    Materia *materiaActual = alumno->materias;
 
     while (materiaActual != NULL)
     {
