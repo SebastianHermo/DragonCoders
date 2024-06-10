@@ -60,6 +60,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
     if (opcion < 1 || opcion > 6)
     {
         printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
+        opcion = 6;
         menuGestionAlumnos(listaAlumno, listaMateria);
     }
     else
@@ -94,6 +95,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             if (opcion < 1 || opcion > 4)
             {
                 printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise una vez que vuelva a esta opcion.");
+                opcion = 3;
                 menuGestionAlumnos(listaAlumno, listaMateria);
             }
             else
@@ -138,6 +140,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             if (opcion < 1 || opcion > 4)
             {
                 printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise una vez que vuelva a esta opcion.");
+                opcion = 4;
                 menuGestionAlumnos(listaAlumno, listaMateria);
             }
             else
@@ -175,6 +178,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             if (opcion < 1 || opcion > 3)
             {
                 printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise una vez que vuelva a esta opcion.");
+                opcion = 5;
                 menuGestionAlumnos(listaAlumno, listaMateria);
             }
             else
@@ -221,6 +225,7 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
     if (opcion < 1 || opcion > 4)
     {
         printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
+        opcion = 4;
         menuGestionMaterias(listaAlumno, listaMateria);
     }
     else
