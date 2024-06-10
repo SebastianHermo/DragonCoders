@@ -9,9 +9,11 @@ void menuBasico2(int);
 void menuGestionAlumnos();
 void menuGestionMaterias();
 
+Alumno *listaAlumnos = NULL;
+Materia *listaMaterias = NULL;
 
 int main() {
-    loadingBar();
+    //loadingBar();
 
     printf("\n\n");
 
@@ -25,12 +27,12 @@ void loadingBar() {
     //    printf("\n\n\n\n");
     printf("\n\n\t\t\tLoading...\n\n");
     printf("\t\t\t\t\t["); // Corchete de apertura
-
-        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177);
-        printf("]"); // Corchete de cierre para la primera barra
+    for (i = 0; i < 26; i++) {
+        printf("%c", 177);
+        fflush(stdout);
         usleep(100000); // 100ms delay
-
-    
+    }
+    printf("]"); // Corchete de cierre para la primera barra
     printf("\r");
     printf("\t\t\t\t\t["); // Corchete de apertura
     for (i = 0; i < 26; i++) {
@@ -42,10 +44,12 @@ void loadingBar() {
 
 }
 
+
 void menu() {
     printf("Bienvenido/s al Gestor de Alumnos por DragonCoders.\n\n"
            "Para comenzar a utilizar el sistema, deberás cargar la información del primer alumno:\n\n");
 
+   
     char nombre [20];
     int edad;
     printf("Ingrese el nombre de pila del Alumno que desea cargar: \n");
@@ -53,7 +57,7 @@ void menu() {
     printf("Perfecto, a continuación ingrese la edad de dicho alumno : \n");
     scanf("%d", &edad);
 
-    /*AltaAlumno(nombre,edad);*/
+    altaAlumno(&listaAlumnos, nombre, edad);
 
     printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar, a partir de distintas funciones para los alumnos y sus respectivas materias cursadas o en curso.\n\n");
 
@@ -109,23 +113,45 @@ void menuGestionAlumnos(){
         printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.");
         menuGestionAlumnos();
     } else {
-        char alumno;
+        char alumno[20];
         int edad;
         switch (opcion) {
             case 1:
-            
-                scanf("%s %c", alumno, edad);
 
-                altaAlumno(alumno, edad);
+                printf("Ingrese el nombre del alumno y su edad\n");
+                scanf("%s %d", alumno, &edad);
 
+                altaAlumno(&listaAlumnos, alumno, edad);
 
-                printf("\nFausto esta haciendo el codigo\n");
+                printf("El alumno fue ingresado con exito\n");
+
+                menuBasico();
+                
+                break;
 
                 case 2:
-                    printf("\nFausto no hizo el código todavía\n");
+                    
+                    printf("Ingrese el nombre del alumno\n");
+                    scanf("%s", alumno);
+
+                    bajaAlumno(&listaAlumnos, alumno);
+
+                    printf("El alumno fue eliminado con exito\n");
+
+                    menuBasico();
+                    break;
 
                     case 3:
-                        printf("\nFausto no hizo el código todavía\n");
+                        
+                        printf("Ingrese el nombre del alumno\n");
+                        scanf("%s", alumno);
+
+                        modificarAlumno(&listaAlumnos, alumno);
+
+                        printf("El nombre fue cambiado con exito\n");
+
+                        menuBasico();
+                        break;
 
                         case 4:
                             menuBasico();
@@ -155,13 +181,13 @@ void menuGestionMaterias(){
         switch (opcion) {
             case 1:
                 printf("\nFausto no hizo el código todavía.\n");
-
+                break;
             case 2:
                 printf("\nFausto no hizo el código todavía.\n");
-
+                break;
             case 3:
                 printf("\nFausto no hizo el código todavía.\n");
-
+                break;
             case 4:
 
                 break;
