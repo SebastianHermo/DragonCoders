@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
-#include "struct.c"
+#include "struct.h"
 #include "menu.c"
 
 void loadingBar();
-void menu(Alumno **listaAlumno, Materia **listaMateria);
+void menu(Alumno *listaAlumno, Materia *listaMateria);
 
 int main()
 {
-    Alumno **listaAlumno;
-    Materia **listaMateria;
+    Alumno *listaAlumno = NULL;
+    Materia *listaMateria = NULL;
     loadingBar();
     printf("\n\n");
     menu(listaAlumno, listaMateria);

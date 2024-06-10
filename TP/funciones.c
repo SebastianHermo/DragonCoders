@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include <stdbool.h>
 #include <string.h>
-#include "struct.c"
+#include "struct.h"
 
 Materia *obtenerMateriasNoInscriptas(Alumno *alumno);
 Materia *buscarMateria(Materia *materias, char *nombreMateria);

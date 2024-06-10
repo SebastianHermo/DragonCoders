@@ -2,8 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-#ifndef STRUCT.C
-#define STRUCT .C
+#ifndef STRUCT_H
+#define STRUCT_H
 // Estructura de nodo para el alumno
 typedef struct primerNodo
 {
