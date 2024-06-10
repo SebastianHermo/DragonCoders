@@ -58,6 +58,8 @@ void menu() {
     scanf("%d", &edad);
 
     altaAlumno(&listaAlumnos, nombre, edad);
+    printf("%s\t",listaAlumnos->nombre);
+    printf("%d\n",listaAlumnos->edad);
 
     printf("\nMuy bien hecho! A partir de esto podemos comenzar a operar, a partir de distintas funciones para los alumnos y sus respectivas materias cursadas o en curso.\n\n");
 
@@ -102,8 +104,9 @@ void menuGestionAlumnos(){
 
     printf("1. Dar de alta un alumno\n"
            "2. Dar de baja un alumno \n"
-           "3. Modificar datos de alumno\n"
-           "4. Volver al menú principal\n");
+           "3. Modificar datos de un alumno\n"
+           "4. Modificar regularidad en materia de un alumno\n"
+           "5. Volver al menú principal\n");
 
 
     int opcion;
@@ -117,6 +120,11 @@ void menuGestionAlumnos(){
         int edad;
         char nuevoNombre[20];
         int nuevaEdad;
+        char materia[20];
+        int regularidad;
+
+        int contador = 1;
+
         switch (opcion) {
             case 1:
 
@@ -124,6 +132,18 @@ void menuGestionAlumnos(){
                 scanf("%s %d", alumno, &edad);
 
                 altaAlumno(&listaAlumnos, alumno, edad);
+
+                if (contador==1){
+
+                printf("%s\t", listaAlumnos->proximo->nombre);
+                printf("%d\n", listaAlumnos->proximo->edad);
+
+                }else{
+                
+                printf("%s\t", listaAlumnos->proximo->proximo->nombre);
+                printf("%d\n", listaAlumnos->proximo->proximo->edad);
+                }
+                contador = contador+1;
 
                 printf("El alumno fue ingresado con exito\n");
 
@@ -156,6 +176,17 @@ void menuGestionAlumnos(){
                         break;
 
                         case 4:
+
+                            printf("Ingrese el nombre del alumno, una materia y su regularidad(1=regular / 0=no regular)\n");
+                            scanf("%s %s %d", alumno, materia, &regularidad);
+
+                            modificarMateriaAlumno(&listaAlumnos, alumno, materia, regularidad);
+
+                            printf("La regularidad se modifico con exito\n");
+                            menuBasico();
+                            break;
+
+                            case 5:
                             menuBasico();
                             break;
         }
@@ -179,13 +210,32 @@ void menuGestionMaterias(){
         menuGestionMaterias();
 
     } else {
+        char materia[20];
 
         switch (opcion) {
             case 1:
-                printf("\nFausto no hizo el código todavía.\n");
+
+                printf("Ingrese el nombre de la materia\n");
+                scanf("%s", materia);
+
+                altaMateria(&listaMaterias,materia);
+
+                printf("La materia fue ingresada con exito\n");
+
+                menuBasico();
+                
                 break;
             case 2:
-                printf("\nFausto no hizo el código todavía.\n");
+
+                printf("Ingrese el nombre de la materia\n");
+                scanf("%s", materia);
+
+                bajaMateria(&listaMaterias,materia);
+
+                printf("La materia fue eliminada con exito\n");
+
+                menuBasico();
+                
                 break;
             case 3:
                 printf("\nFausto no hizo el código todavía.\n");

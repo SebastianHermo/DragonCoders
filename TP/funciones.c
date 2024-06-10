@@ -10,7 +10,7 @@ int buscarAlumno(Alumno* listaAlumnos, char* nombre);
 
 //Dar de alta un Alumno
 void altaAlumno(Alumno **lista, char* alumno, int edad) {
-    Alumno* nuevo = (Alumno*) malloc(sizeof(Alumno));
+    Alumno *nuevo = (Alumno*) malloc(sizeof(Alumno));
     nuevo->nombre = (char*) malloc(strlen(alumno) + 1);
     strcpy(nuevo->nombre, alumno);
     nuevo->edad = edad;
