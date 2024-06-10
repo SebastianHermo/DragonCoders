@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
-#include "TP/struct.c"
+#include "struct.c"
 #include "menu.c"
 
 void loadingBar();

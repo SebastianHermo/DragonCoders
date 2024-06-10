@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include <time.h>
 #include <stdlib.h>
-#include "TP/funciones.c"
+#include "funciones.c"
 
 void despedida();
 void menuGestionAlumnos(Alumno **listaAlumno, Materia **listaMateria);
