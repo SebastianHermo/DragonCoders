@@ -115,6 +115,8 @@ void menuGestionAlumnos(){
     } else {
         char alumno[20];
         int edad;
+        char nuevoNombre[20];
+        int nuevaEdad;
         switch (opcion) {
             case 1:
 
@@ -142,11 +144,11 @@ void menuGestionAlumnos(){
                     break;
 
                     case 3:
-                        
-                        printf("Ingrese el nombre del alumno\n");
-                        scanf("%s", alumno);
 
-                        modificarAlumno(&listaAlumnos, alumno);
+                        printf("Ingrese el nombre actual del alumno, su nuevo nombre y su nueva edad\n");
+                        scanf("%s %s %d", alumno, nuevoNombre, &nuevaEdad);
+
+                        modificarAlumno(&listaAlumnos, alumno, nuevoNombre, nuevaEdad);
 
                         printf("El nombre fue cambiado con exito\n");
 

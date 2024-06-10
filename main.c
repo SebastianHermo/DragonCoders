@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "funciones.h"
+#include "funciones.c"
 
 void loadingBar();
 void menu();
