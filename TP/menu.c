@@ -246,7 +246,7 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
             printf("Ingrese el nombre de la materia que quiere cambiar de las que hay a continuacion:.\n");
             imprimirMaterias(listaMateria);
             scanf("%s", materia);
-            if (buscarMateria(listaMateria, materia) == materia)
+            if ((Materia*)buscarMateria(listaMateria, materia) == materia)
             {
                 printf("Ahora ingrese su nuevo nombre");
                 scanf("%s", nuevoNombre);

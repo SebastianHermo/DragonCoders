@@ -16,7 +16,7 @@ int main()
     menu(listaAlumno, listaMateria);
     return 0;
 }
-
+        
 void loadingBar()
 {
 

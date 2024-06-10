@@ -36,7 +36,7 @@ void altaAlumno(Alumno *lista, char *alumno, int edad)
 // Dar de alta una materia
 void altaMateria(Materia *lista, char *materia)
 {
-    Materia *nuevo = (Materia *)malloc(sizeof(Materia));
+    Materia *nuevo = (Materia *)malloc(sizeof(Materia));    
     nuevo->nombre = (char *)malloc(strlen(materia) + 1);
     strcpy(nuevo->nombre, materia);
     nuevo->proximo = NULL;
@@ -259,12 +259,12 @@ void enlistarAlumnosRegulares(Alumno *listaAlumnos, char *nombreMateria)
 
         while (materiaActual != NULL)
         {
-            if (strcmp(materiaActual->nombre, nombreMateria) == 0 && materiaActual->regularidad == 1)
-            {
-                printf("Alumno: %s\n", actual->nombre);
-                break;
-            }
-            materiaActual = materiaActual->proximo;
+                                            strcmp(materiaActual->nombre, nombreMateria) == 0 && materiaActual->regularidad == 1)
+                                            {
+                                                printf("Alumno: %s\n", actual->nombre);
+                                                break;
+                                            }
+                                            materiaActual = materiaActual->proximo;
         }
         actual = actual->proximo;
     }
