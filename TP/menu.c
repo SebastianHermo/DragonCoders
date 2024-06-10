@@ -69,7 +69,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
         case 1:
             printf("Ingrese el nombre del alumno y su edad\n");
             scanf("%s %d", alumno, &edad);
-            altaAlumno(listaAlumno, alumno, edad);
+            altaAlumno(&listaAlumno, alumno, edad);
             printf("El alumno fue ingresado con exito\n");
             menuGestionAlumnos(listaAlumno, listaMateria);
             break;

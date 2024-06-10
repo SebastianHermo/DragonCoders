@@ -9,34 +9,47 @@ Materia *buscarMateria(Materia *materias, char *nombreMateria);
 int buscarAlumno(Alumno *listaAlumnos, char *nombre);
 
 // Dar de alta un Alumno
-void altaAlumno(Alumno *lista, char *alumno, int edad)
+int altaAlumno(Alumno **lista, char *alumno, int edad)
 {
-    Alumno *nuevo = (Alumno *)malloc(sizeof(Alumno));
-    nuevo->nombre = (char *)malloc(strlen(alumno) + 1);
-    strcpy(nuevo->nombre, alumno);
-    nuevo->edad = edad;
-    nuevo->materias = NULL;
-    nuevo->proximo = NULL;
-
-    if (lista == NULL)
+    Alumno *nuevoNodo = malloc(sizeof(Alumno));
+    Alumno *cursor = *lista;
+    Alumno *ultimo;
+    if (nuevoNodo == NULL)
     {
-        lista = nuevo;
+        printf("Error: no se pudo asignar el estudiante\n");
+        return -1; // Devuelve un valor de error
+    }
+
+    nuevoNodo->nombre = malloc(strlen(alumno) + 1);
+    if (nuevoNodo->nombre == NULL)
+    {
+        printf("Error: no se pudo asignar memoria para el nombre del estudiante\n");
+        free(nuevoNodo); // Libera la memoria asignada para nuevoNodo
+        
+    }
+    strcpy(nuevoNodo->nombre, alumno);
+
+    nuevoNodo->edad = edad;
+    nuevoNodo->proximo = NULL;
+
+    if (*lista == NULL)
+    {
+        *lista = nuevoNodo;
     }
     else
     {
-        Alumno *actual = lista;
-        while (actual->proximo != NULL)
+        while (cursor->proximo != NULL)
         {
-            actual = actual->proximo;
+            cursor = cursor->proximo;
         }
-        actual->proximo = nuevo;
+        cursor->proximo = nuevoNodo;
     }
 }
 
 // Dar de alta una materia
 void altaMateria(Materia *lista, char *materia)
 {
-    Materia *nuevo = (Materia *)malloc(sizeof(Materia));    
+    Materia *nuevo = (Materia *)malloc(sizeof(Materia));
     nuevo->nombre = (char *)malloc(strlen(materia) + 1);
     strcpy(nuevo->nombre, materia);
     nuevo->proximo = NULL;
@@ -259,12 +272,12 @@ void enlistarAlumnosRegulares(Alumno *listaAlumnos, char *nombreMateria)
 
         while (materiaActual != NULL)
         {
-                                            strcmp(materiaActual->nombre, nombreMateria) == 0 && materiaActual->regularidad == 1)
-                                            {
-                                                printf("Alumno: %s\n", actual->nombre);
-                                                break;
-                                            }
-                                            materiaActual = materiaActual->proximo;
+            if (strcmp(materiaActual->nombre, nombreMateria) == 0 && materiaActual->regularidad == 1)
+            {
+                printf("Alumno: %s\n", actual->nombre);
+                break;
+            }
+            materiaActual = materiaActual->proximo;
         }
         actual = actual->proximo;
     }
