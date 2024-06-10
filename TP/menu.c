@@ -134,7 +134,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
                    "2. Enlistar a todos los alumnos activos\n"
                    "3. Enlistar las materias de un alumno\n"
                    "4. Volver al menu de Gestiones de Alumnos\n");
-            scanf("%1d", opcion);
+            scanf("%d", &opcion);
             if (opcion < 1 || opcion > 4)
             {
                 printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise una vez que vuelva a esta opcion.");
@@ -171,7 +171,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             printf("1. Buscar alumno en especifico\n"
                    "2. Buscar alumno por edad\n"
                    "3. Volver al menu de Gestiones de Alumnos\n");
-            scanf("%1d", opcion);
+            scanf("%d", &opcion);
             if (opcion < 1 || opcion > 3)
             {
                 printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise una vez que vuelva a esta opcion.");
@@ -246,7 +246,7 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
             printf("Ingrese el nombre de la materia que quiere cambiar de las que hay a continuacion:.\n");
             imprimirMaterias(listaMateria);
             scanf("%s", materia);
-            if ((Materia*)buscarMateria(listaMateria, materia) == materia)
+            if ((Materia *)buscarMateria(listaMateria, materia) == materia)
             {
                 printf("Ahora ingrese su nuevo nombre");
                 scanf("%s", nuevoNombre);
