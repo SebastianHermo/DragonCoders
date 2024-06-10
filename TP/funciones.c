@@ -4,6 +4,10 @@
 #include <string.h>
 #include "struct.c"
 
+Materia* obtenerMateriasNoInscriptas(Alumno* alumno);
+Materia* buscarMateria(Materia* materias, char* nombreMateria);
+int buscarAlumno(Alumno* listaAlumnos, char* nombre);
+
 //Dar de alta un Alumno
 void altaAlumno(Alumno **lista, char* alumno, int edad) {
     Alumno* nuevo = (Alumno*) malloc(sizeof(Alumno));
@@ -37,7 +41,7 @@ void altaMateria(Materia **lista, char* materia) {
     if (*lista == NULL) {
         *lista = nuevo;
     } else {
-        Alumno* actual = *lista;
+        Materia* actual = *lista;
         while (actual->proximo!= NULL) {
             actual = actual->proximo;
         }
@@ -312,7 +316,7 @@ void agregarMateriaAlumno(Alumno* listaAlumnos, char* nombreAlumno) {
 
 Materia* obtenerMateriasNoInscriptas(Alumno* alumno) {
     Materia* materiasNoInscriptas = NULL;
-    Materia* materiaActual = alumno->materias;
+    Alumno* materiaActual = alumno->materias;
 
     while (materiaActual != NULL) {
         Materia* materiaSiguiente = materiaActual->proximo;
@@ -344,7 +348,6 @@ void editarNotaDelAlumno(Alumno* listaAlumnos, char* nombreAlumno, char* nombreM
     }
 
     Alumno* alumno = &listaAlumnos[indiceAlumno];
-
     Materia* cursor = alumno->materias;
     while (cursor!= NULL && strcmp(cursor->nombre, nombreMateria)!= 0) {
         cursor = cursor->proximo;
