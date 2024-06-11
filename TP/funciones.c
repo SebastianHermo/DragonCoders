@@ -9,7 +9,7 @@ Materia *buscarMateria(Materia *materias, char *nombreMateria);
 int buscarAlumno(Alumno *listaAlumnos, char *nombre);
 
 // Dar de alta un Alumno
-int altaAlumno(Alumno **lista, char *alumno, int edad)
+void altaAlumno(Alumno **lista, char *alumno, int edad)
 {
     Alumno *nuevoNodo = malloc(sizeof(Alumno));
     Alumno *cursor = *lista;
@@ -17,7 +17,6 @@ int altaAlumno(Alumno **lista, char *alumno, int edad)
     if (nuevoNodo == NULL)
     {
         printf("Error: no se pudo asignar el estudiante\n");
-        return -1; // Devuelve un valor de error
     }
 
     nuevoNodo->nombre = malloc(strlen(alumno) + 1);
@@ -25,7 +24,6 @@ int altaAlumno(Alumno **lista, char *alumno, int edad)
     {
         printf("Error: no se pudo asignar memoria para el nombre del estudiante\n");
         free(nuevoNodo); // Libera la memoria asignada para nuevoNodo
-        
     }
     strcpy(nuevoNodo->nombre, alumno);
 
