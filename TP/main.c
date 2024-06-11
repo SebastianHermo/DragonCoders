@@ -5,8 +5,10 @@
 #include "menu.c"
 
 void loadingBar();
+void menu(Alumno *listaAlumno, Materia *listaMateria);
 
-int main(){
+int main()
+{
     Alumno *listaAlumno = NULL;
     Materia *listaMateria = NULL;
     loadingBar();
@@ -14,14 +16,15 @@ int main(){
     menu(listaAlumno, listaMateria);
     return 0;
 }
-
-void loadingBar(){
+        
+void loadingBar()
+{
 
     int i;
-    //    printf("\n\n\n\n");
     printf("\n\n\t\t\tLoading...\n\n");
     printf("\t\t\t\t\t["); // Corchete de apertura
-    for (i = 0; i < 26; i++){
+    for (i = 0; i < 26; i++)
+    {
         printf("%c", 177);
         fflush(stdout);
         usleep(100000); // 100ms delay
@@ -29,7 +32,8 @@ void loadingBar(){
     printf("]"); // Corchete de cierre para la primera barra
     printf("\r");
     printf("\t\t\t\t\t["); // Corchete de apertura
-    for (i = 0; i < 26; i++){
+    for (i = 0; i < 26; i++)
+    {
         printf("%c", 219);
         fflush(stdout);
         usleep(100000); // 100ms delay

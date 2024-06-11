@@ -6,7 +6,8 @@
 #define STRUCT_H
 
 // Estructura de nodo para el alumno
-typedef struct primerNodo{
+typedef struct Alumno
+{
     char *nombre;
     int edad;
     struct Materia *materias; // lista de materias individuales
@@ -14,7 +15,8 @@ typedef struct primerNodo{
 } Alumno;
 
 // Estructura de nodo para la materia
-typedef struct segundoNodo{
+typedef struct Materia
+{
     char *nombre;
     int estado; // 0 = no aprobado, 1 = aprobado
     float nota;
