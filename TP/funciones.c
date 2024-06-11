@@ -47,7 +47,7 @@ int altaAlumno(Alumno **lista, char *alumno, int edad)
 }
 
 // Dar de alta una materia
-void altaMateria(Materia *lista, char *materia)
+void altaMateria(Materia **lista, char *materia)
 {
     Materia *nuevo = (Materia *)malloc(sizeof(Materia));
     nuevo->nombre = (char *)malloc(strlen(materia) + 1);
@@ -57,13 +57,13 @@ void altaMateria(Materia *lista, char *materia)
     nuevo->nota = 0;
     nuevo->regularidad = 0;
 
-    if (lista == NULL)
+    if (*lista == NULL)
     {
-        lista = nuevo;
+        *lista = nuevo;
     }
     else
     {
-        Materia *actual = lista;
+        Materia *actual = *lista;
         while (actual->proximo != NULL)
         {
             actual = actual->proximo;
@@ -73,15 +73,15 @@ void altaMateria(Materia *lista, char *materia)
 }
 
 // Dar de baja a un Alumno
-void bajaAlumno(Alumno *lista, char *alumno)
+void bajaAlumno(Alumno **lista, char *alumno)
 {
-    if (lista == NULL)
+    if (*lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = lista;
+    Alumno *actual = *lista;
     Alumno *anterior = NULL;
 
     while (actual != NULL && strcmp(actual->nombre, alumno) != 0)
@@ -98,7 +98,7 @@ void bajaAlumno(Alumno *lista, char *alumno)
 
     if (anterior == NULL)
     {
-        lista = actual->proximo;
+        *lista = actual->proximo;
     }
     else
     {
@@ -110,15 +110,15 @@ void bajaAlumno(Alumno *lista, char *alumno)
 }
 
 // dar de baja una Materia
-void bajaMateria(Materia *lista, char *materia)
+void bajaMateria(Materia **lista, char *materia)
 {
-    if (lista == NULL)
+    if (*lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Materia *actual = lista;
+    Materia *actual = *lista;
     Materia *anterior = NULL;
 
     while (actual != NULL && strcmp(actual->nombre, materia) != 0)
@@ -135,7 +135,7 @@ void bajaMateria(Materia *lista, char *materia)
 
     if (anterior == NULL)
     {
-        lista = actual->proximo;
+        *lista = actual->proximo;
     }
     else
     {
@@ -148,15 +148,15 @@ void bajaMateria(Materia *lista, char *materia)
 
 /*Modificar una materia en cuestion ya existente
  */
-void modificarMateria(Materia *lista, char *nombre, char *nuevoNombre)
+void modificarMateria(Materia **lista, char *nombre, char *nuevoNombre)
 {
-    if (lista == NULL)
+    if (*lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Materia *actual = lista;
+    Materia *actual = *lista;
 
     while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
     {
@@ -181,9 +181,9 @@ void modificarMateria(Materia *lista, char *nombre, char *nuevoNombre)
 /*Modifica la materia del Alumno para que sea regular en dicha materia,
 1 para ser regular, 0 para no serlo.
 */
-void modificarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nombreMateria, int regularidad)
+void modificarMateriaAlumno(Alumno **listaAlumnos, char *nombreAlumno, char *nombreMateria, int regularidad)
 {
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+    int indiceAlumno = buscarAlumno(*listaAlumnos, nombreAlumno);
 
     if (indiceAlumno == -1)
     {
@@ -191,7 +191,7 @@ void modificarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nomb
         return;
     }
 
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
+    Alumno *alumno = &(*listaAlumnos[indiceAlumno]);
 
     Materia *materiaActual = alumno->materias;
 
@@ -225,15 +225,15 @@ void modificarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nomb
 /*Modificar algun alumno en particular ya existente,
   si no quieres editar los nuevos puedes dejarlos vacios
 */
-void modificarAlumno(Alumno *lista, char *nombre, char *nuevoNombre, int nuevaEdad)
+void modificarAlumno(Alumno **lista, char *nombre, char *nuevoNombre, int nuevaEdad)
 {
-    if (lista == NULL)
+    if (*lista == NULL)
     {
         printf("La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = lista;
+    Alumno *actual = *lista;
 
     while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
     {
@@ -335,16 +335,16 @@ void buscarAlumnoEdad(Alumno **lista, int edad)
 }
 
 // Anotar un alumno que esta dado de alta en la materia
-void agregarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno)
+void agregarMateriaAlumno(Alumno **listaAlumnos, char *nombreAlumno)
 {
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+    int indiceAlumno = buscarAlumno(*listaAlumnos, nombreAlumno);
 
     if (indiceAlumno == -1)
     {
         printf("No se encontró el alumno %s\n", nombreAlumno);
         return;
     }
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
+    Alumno *alumno = &(*listaAlumnos)[indiceAlumno];
 
     Materia *materiasNoInscriptas = obtenerMateriasNoInscriptas(alumno);
     if (materiasNoInscriptas == NULL)
@@ -420,9 +420,10 @@ Materia *buscarMateria(Materia *materias, char *nombreMateria)
 }
 
 // Edita la materia del alumno con respecto a sus notas.
-void editarNotaDelAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nombreMateria, float nota)
+void editarNotaDelAlumno(Alumno **listaAlumnos, char *nombreAlumno, char *nombreMateria, float nota)
 {
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+    Alumno *lista = *listaAlumnos;
+    int indiceAlumno = buscarAlumno(lista, nombreAlumno);
 
     if (indiceAlumno == -1)
     {
@@ -430,7 +431,7 @@ void editarNotaDelAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nombreM
         return;
     }
 
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
+    Alumno *alumno = &lista[indiceAlumno];
     Materia *cursor = alumno->materias;
     while (cursor != NULL && strcmp(cursor->nombre, nombreMateria) != 0)
     {

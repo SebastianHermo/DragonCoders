@@ -95,7 +95,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
     case 2:
         printf("Ingrese el nombre del alumno\n");
         scanf("%s", alumno);
-        bajaAlumno(listaAlumno, alumno);
+        bajaAlumno(&listaAlumno, alumno);
         printf("El alumno fue eliminado con exito\n");
         menuGestionAlumnos(listaAlumno, listaMateria);
         break;
@@ -130,7 +130,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
         case 1:
             printf("Ingrese el nombre actual del alumno, su nuevo nombre y su nueva edad\n");
             scanf("%s %s %d", alumno, nuevoNombre, &nuevaEdad);
-            modificarAlumno(listaAlumno, alumno, nuevoNombre, nuevaEdad);
+            modificarAlumno(&listaAlumno, alumno, nuevoNombre, nuevaEdad);
             printf("El nombre fue cambiado con exito\n");
             menuGestionAlumnos(listaAlumno, listaMateria);
             break;
@@ -139,7 +139,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             imprimirMaterias(listaMateria);
             printf("Ingrese el alumno, la materia y la nota\n");
             scanf("%s %s %d", alumno, materia, nota);
-            editarNotaDelAlumno(listaAlumno, alumno, materia, nota);
+            editarNotaDelAlumno(&listaAlumno, alumno, materia, nota);
             printf("La nota ya fue modificada");
             menuGestionAlumnos(listaAlumno, listaMateria);
             break;
@@ -148,7 +148,7 @@ void menuGestionAlumnos(Alumno *listaAlumno, Materia *listaMateria)
             imprimirMaterias(listaMateria);
             printf("Ingrese el alumno que quiere agregar su materia\n");
             scanf("%s", alumno);
-            agregarMateriaAlumno(listaAlumno, alumno);
+            agregarMateriaAlumno(&listaAlumno, alumno);
             menuGestionAlumnos(listaAlumno, listaMateria);
             break;
         case 4:
@@ -286,14 +286,14 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
     case 1:
         printf("Ingrese el nombre de la materia que va a dar de alta.\n");
         scanf("%s", materia);
-        altaMateria(listaMateria, materia);
+        altaMateria(&listaMateria, materia);
         printf("La materia fue ingresada con exito.\n");
         menuGestionMaterias(listaAlumno, listaMateria);
         break;
     case 2:
         printf("Ingrese el nombre de la materia que va a dar de baja.\n");
         scanf("%s", materia);
-        bajaMateria(listaMateria, materia);
+        bajaMateria(&listaMateria, materia);
         printf("La materia fue dada de baja con exito.\n");
         menuGestionMaterias(listaAlumno, listaMateria);
         break;
@@ -305,7 +305,7 @@ void menuGestionMaterias(Alumno *listaAlumno, Materia *listaMateria)
         {
             printf("Ahora ingrese su nuevo nombre");
             scanf("%s", nuevoNombre);
-            modificarMateria(listaMateria, materia, nuevoNombre);
+            modificarMateria(&listaMateria, materia, nuevoNombre);
             printf("La materia a cambiado su nombre exitosamente.\n");
             menuGestionMaterias(listaAlumno, listaMateria);
             break;
