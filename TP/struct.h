@@ -63,11 +63,11 @@ Materia *NewMateria(char *nombre)
     materia->regularidad = 0;
     return materia;
 }
+
 typedef struct structNodoMateria
 {
     Materia *datos;
     struct structNodoMateria *prox;
-
 } NodoMateria;
 
 NodoMateria *NewNodoMateria(Materia *materia)

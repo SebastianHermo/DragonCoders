@@ -138,8 +138,13 @@ void menuGestionAlumnos(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMater
                     menuGestionAlumnos(listaAlumno, listaMateria);
                     break;
                 case 3:
+                    if (listaMateria->head == NULL)
+                    {
+                        printf("Error: Todavia no se ingreso ninguna materia\n");
+                        menuGestionAlumnos(listaAlumno, listaMateria);
+                    }
                     printf("Segun las materias de a continuacion:\n");
-                    imprimirMaterias(listaMateria);
+                    imprimirMaterias(listaMateria);                    
                     printf("Ingrese el alumno que quiere agregar su materia\n");
                     scanf("%s", alumno);
                     agregarMateriaAlumno(listaAlumno, listaMateria, alumno, materia);
@@ -276,7 +281,7 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
         case 1:
             printf("Ingrese el nombre de la materia que va a dar de alta.\n");
             scanf("%s", materia);
-            altaMateria(listaMateria, alumno);
+            altaMateria(listaMateria, materia);
             printf("La materia fue ingresada con exito.\n");
             menuGestionMaterias(listaAlumno, listaMateria);
             break;
@@ -303,14 +308,13 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
                 while ((c = getchar()) != '\n' && c != EOF)
                 {
                 }
-                printf("Seleccione a continuación la opción que desee utilizar\n");
-
-                printf("1. Dar de alta una materia\n"
-                    "2. Dar de baja una materia \n"
-                    "3. Modificar datos de una materia\n"
-                    "4. Enlistar las materias activas\n"
-                    "5. Volver al menú principal\n");
-                scanf("%d", &opcion);
+            printf("Seleccione a continuación la opción que desee utilizar\n");
+            printf( "1. Modificar el nombre de una materia\n"
+                    "2. Modificar el estado de una materia \n"
+                    "3. Modificar la regularidad de un alumno en una materia\n"
+                    "4. Agregar una materia a la lista de materias de un alumno\n"
+                    "5. Volver al menú de gestion de materias\n");
+            scanf("%d", &opcion);
             }
 
             switch (opcion){
@@ -399,6 +403,7 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
 
         case 4:
             imprimirMaterias(listaMateria);
+            menuGestionMaterias(listaAlumno, listaMateria);
             break;
         case 5:
             menu(listaAlumno, listaMateria);
