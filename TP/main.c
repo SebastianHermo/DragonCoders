@@ -5,18 +5,16 @@
 #include "menu.c"
 
 void loadingBar();
-void menu(Alumno *listaAlumno, Materia *listaMateria);
 
-int main()
-{
-    Alumno *listaAlumno = NULL;
-    Materia *listaMateria = NULL;
+int main(){
     loadingBar();
+    ListaDeAlumnos *listaAlumnos = NewListaDeAlumnos();
+    ListaDeMaterias *listaMaterias = NewListaDeMaterias();
+    menu(listaAlumnos, listaMaterias);
     printf("\n\n");
-    menu(listaAlumno, listaMateria);
     return 0;
 }
-        
+
 void loadingBar()
 {
 
@@ -38,5 +36,5 @@ void loadingBar()
         fflush(stdout);
         usleep(100000); // 100ms delay
     }
-    printf("]"); // Corchete de cierre para la segunda barra
+    printf("]\n\n"); // Corchete de cierre para la segunda barra
 }

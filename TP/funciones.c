@@ -1,497 +1,382 @@
 #include <stdio.h>
-#include <malloc.h>
-#include <stdbool.h>
 #include <string.h>
 #include "struct.h"
 
-Materia *obtenerMateriasNoInscriptas(Alumno *alumno);
-Materia *buscarMateria(Materia *materias, char *nombreMateria);
-int buscarAlumno(Alumno *listaAlumnos, char *nombre);
-
-// Dar de alta un Alumno
-void altaAlumno(Alumno **lista, char *alumno, int edad)
-{
-    Alumno *nuevoNodo = malloc(sizeof(Alumno));
-    Alumno *cursor = *lista;
-    if (nuevoNodo == NULL)
-    {
-        printf("Error: no se pudo asignar el estudiante\n");
+// Función para dar de alta a un alumno
+void altaAlumno(ListaDeAlumnos *lista, char *nombreAlumno, int edad) {
+    if (lista == NULL) {
+        printf("Error: la lista no está inicializada\n");
+        return;
     }
 
-    nuevoNodo->nombre = malloc(strlen(alumno) + 1); 
-    if (nuevoNodo->nombre == NULL)
-    {
-        printf("Error: no se pudo asignar memoria para el nombre del estudiante\n");
-        free(nuevoNodo); // Libera la memoria asignada para nuevoNodo
-        
+    Alumno *nuevoAlumno = NewAlumno(nombreAlumno, edad);
+    if (nuevoAlumno == NULL) {
+        printf("Error: no se pudo asignar memoria para el alumno\n");
+        return;
     }
-    strcpy(nuevoNodo->nombre, alumno);
 
-    nuevoNodo->edad = edad;
-    nuevoNodo->proximo = NULL;
+    NodoAlumno *node = NewNodoAlumno(nuevoAlumno);
+    if (node == NULL) {
+        printf("Error: no se pudo asignar memoria para el nodo\n");
+        free(nuevoAlumno->nombre);  // Liberar cadena duplicada
+        free(nuevoAlumno);  // Liberar estructura Alumno
+        return;
+    }
 
-    if (*lista == NULL)
-    {
-        *lista = nuevoNodo;
+    if (SizeofLista(lista) == 0) {
+        lista->head = node;
+        lista->tail = node;
+    } else {
+        lista->tail->prox = node;
+        lista->tail = node;
     }
-    else
-    {
-        while (cursor->proximo != NULL)
-        {
-            cursor = cursor->proximo;
-        }
-        cursor->proximo = nuevoNodo;
-    }
-}
-
-// Dar de alta una materia
-void altaMateria(Materia *lista, char *materia)
-{
-    Materia *nuevo = (Materia *)malloc(sizeof(Materia));
-    nuevo->nombre = (char *)malloc(strlen(materia) + 1);
-    strcpy(nuevo->nombre, materia);
-    nuevo->proximo = NULL;
-    nuevo->estado = 0;
-    nuevo->nota = 0;
-    nuevo->regularidad = 0;
-
-    if (lista == NULL)
-    {
-        lista = nuevo;
-    }
-    else
-    {
-        Materia *actual = lista;
-        while (actual->proximo != NULL)
-        {
-            actual = actual->proximo;
-        }
-        actual->proximo = nuevo;
-    }
+    lista->size++;
 }
 
 // Dar de baja a un Alumno
-void bajaAlumno(Alumno *lista, char *alumno)
-{
-    if (lista == NULL)
-    {
-        printf("La lista está vacía\n");
+void bajaAlumno(ListaDeAlumnos *lista, char *alumno) {
+    if (lista == NULL || lista->head == NULL) {
+        printf("Error: La lista está vacía\n");
         return;
     }
 
-    Alumno *actual = lista;
-    Alumno *anterior = NULL;
+    NodoAlumno *actual = lista->head;
+    NodoAlumno *anterior = NULL;
 
-    while (actual != NULL && strcmp(actual->nombre, alumno) != 0)
-    {
+    while (actual != NULL && (actual->datos == NULL || strcmp(actual->datos->nombre, alumno) != 0)) {
         anterior = actual;
-        actual = actual->proximo;
+        actual = actual->prox;
     }
 
-    if (actual == NULL)
-    {
-        printf("No se encontró el alumno %s\n", alumno);
+    if (actual == NULL) {
+        printf("Error: Alumno no encontrado\n");
         return;
     }
 
-    if (anterior == NULL)
-    {
-        lista = actual->proximo;
-    }
-    else
-    {
-        anterior->proximo = actual->proximo;
-    }
-
-    free(actual->nombre);
-    free(actual);
-}
-
-// dar de baja una Materia
-void bajaMateria(Materia *lista, char *materia)
-{
-    if (lista == NULL)
-    {
-        printf("La lista está vacía\n");
-        return;
-    }
-
-    Materia *actual = lista;
-    Materia *anterior = NULL;
-
-    while (actual != NULL && strcmp(actual->nombre, materia) != 0)
-    {
-        anterior = actual;
-        actual = actual->proximo;
-    }
-
-    if (actual == NULL)
-    {
-        printf("No se encontró el alumno %s\n", materia);
-        return;
-    }
-
-    if (anterior == NULL)
-    {
-        lista = actual->proximo;
-    }
-    else
-    {
-        anterior->proximo = actual->proximo;
-    }
-
-    free(actual->nombre);
-    free(actual);
-}
-
-/*Modificar una materia en cuestion ya existente
- */
-void modificarMateria(Materia *lista, char *nombre, char *nuevoNombre)
-{
-    if (lista == NULL)
-    {
-        printf("La lista está vacía\n");
-        return;
-    }
-
-    Materia *actual = lista;
-
-    while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
-    {
-        actual = actual->proximo;
-    }
-
-    if (actual == NULL)
-    {
-        printf("No se encontró la materia %s\n", nombre);
-        return;
-    }
-
-    // Actualizar nombre de la materia
-    if (nuevoNombre != NULL)
-    {
-        free(actual->nombre);
-        actual->nombre = (char *)malloc(strlen(nuevoNombre) + 1);
-        strcpy(actual->nombre, nuevoNombre);
+    if (anterior == NULL) {
+        // El nodo a eliminar es el primero de la lista
+        lista->head = actual->prox;
+    } else {
+        // El nodo a eliminar no es el primero
+        anterior->prox = actual->prox;
     }
 }
 
-/*Modifica la materia del Alumno para que sea regular en dicha materia,
-1 para ser regular, 0 para no serlo.
-*/
-void modificarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nombreMateria, int regularidad)
-{
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+// Modificar algun alumno en particular ya existente
+void modificarAlumno(ListaDeAlumnos *lista, char *nombre, char *nuevoNombre, int nuevaEdad) {
 
-    if (indiceAlumno == -1)
-    {
-        printf("No se encontró el alumno %s\n", nombreAlumno);
+    if (!lista || !nombre || !nuevoNombre) {
+        printf("Error: Alguno de los parámetros es inválido\n");
         return;
     }
 
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
+    NodoAlumno *actual = lista->head;
 
-    Materia *materiaActual = alumno->materias;
-
-    while (materiaActual != NULL && strcmp(materiaActual->nombre, nombreMateria) != 0)
-    {
-        materiaActual = materiaActual->proximo;
-    }
-
-    if (materiaActual == NULL)
-    {
-        printf("No se encontró la materia %s del alumno %s\n", nombreMateria, alumno->nombre);
-        return;
-    }
-
-    // Actualizar regularidad de la materia
-    if (regularidad == 0 || regularidad == 1)
-    {
-        materiaActual->regularidad = regularidad;
-    }
-    else
-    {
-        printf("La regularidad debe ser 0 (irregular) o 1 (regular)\n");
-        return;
-    }
-
-    printf("Regularidad de la materia %s del alumno %s actualizada a %d (%s)\n",
-           nombreMateria, alumno->nombre, regularidad,
-           regularidad == 0 ? "irregular" : "regular");
-}
-
-/*Modificar algun alumno en particular ya existente,
-  si no quieres editar los nuevos puedes dejarlos vacios
-*/
-void modificarAlumno(Alumno *lista, char *nombre, char *nuevoNombre, int nuevaEdad)
-{
-    if (lista == NULL)
-    {
-        printf("La lista está vacía\n");
-        return;
-    }
-
-    Alumno *actual = lista;
-
-    while (actual != NULL && strcmp(actual->nombre, nombre) != 0)
-    {
-        actual = actual->proximo;
-    }
-
-    if (actual == NULL)
-    {
-        printf("No se encontró el alumno %s\n", nombre);
-        return;
-    }
-
-    // Actualizar nombre del alumno
-    if (nuevoNombre != NULL)
-    {
-        free(actual->nombre);
-        actual->nombre = (char *)malloc(strlen(nuevoNombre) + 1);
-        strcpy(actual->nombre, nuevoNombre);
-    }
-
-    // Actualizar edad del alumno
-    if (nuevaEdad != -1)
-    {
-        actual->edad = nuevaEdad;
-    }
-}
-
-// Lista de los alumnos de una materia especifica
-void enlistarAlumnosRegulares(Alumno *listaAlumnos, char *nombreMateria)
-{
-    Alumno *actual = listaAlumnos;
-
-    while (actual != NULL)
-    {
-        Materia *materiaActual = actual->materias;
-
-        while (materiaActual != NULL)
-        {
-            if (strcmp(materiaActual->nombre, nombreMateria) == 0 && materiaActual->regularidad == 1)
-            {
-                printf("Alumno: %s\n", actual->nombre);
-                break;
-            }
-            materiaActual = materiaActual->proximo;
+    while (actual) {
+        if (strcmp(actual->datos->nombre, nombre) == 0) {
+            strncpy(actual->datos->nombre, nuevoNombre, sizeof(actual->datos->nombre) - 1);
+            actual->datos->nombre[sizeof(actual->datos->nombre) - 1] = '\0';
+            actual->datos->edad = nuevaEdad;
+            return;
         }
-        actual = actual->proximo;
+        actual = actual->prox;
     }
+    printf("Error: no se encontró el alumno con el nombre %s\n", nombre);
+
 }
 
-// lista de alumnos anotados en la universidad
-void enlistarAlumnos(Alumno *listaAlumnos)
-{
-    Alumno *actual = listaAlumnos;
-    printf("Lista de alumnos:\n");
-    while (actual != NULL)
-    {
-        printf("Alumno: %s\n", actual->nombre);
-        actual = actual->proximo;
+//Imprime un listado de los alumnos inscriptos
+void enlistarAlumnos(ListaDeAlumnos *lista) {
+
+    if (lista == NULL){
+        printf("Error: La lista está vacía\n");
     }
+    NodoAlumno *actual = lista->head;
+
+    while (actual != NULL){
+        printf("Alumno: %s\n", actual->datos->nombre);
+        actual = actual->prox;
+    }
+
+    printf("\n");
+
 }
 
 // Buscar si el alumno esta dado de Alta
-int buscarAlumno(Alumno *listaAlumnos, char *nombre)
-{
-    int indice = 0;
-    Alumno *actual = listaAlumnos;
+Alumno buscarAlumno(ListaDeAlumnos *lista, char *nombre) {
 
-    while (actual != NULL)
-    {
-        if (strcmp(actual->nombre, nombre) == 0)
-        {
-            printf("El alumno %s está dado de alta.\n", nombre);
-            return indice;
-        }
-        actual = actual->proximo;
-        indice++;
+    while (lista == NULL) {
+        printf("Error: La lista está vacía\n");
+        break;
     }
-    printf("El alumno %s no está dado de alta.\n", nombre);
-    return -1;
+
+    NodoAlumno *actual = lista->head;
+    NodoAlumno *alumnoBuscado = NULL;
+
+    while (actual != NULL) {
+        if (strcmp(actual->datos->nombre, nombre) == 0) {
+            *alumnoBuscado = *actual;
+        }
+        actual = actual->prox;
+    }
+
+    return *alumnoBuscado->datos;
 }
 
-// Buscar el alumno por la edad y devolver los alumnos de dicha edad
-void buscarAlumnoEdad(Alumno **lista, int edad)
-{
-    int encontrado = 0;
-    printf("Alumnos de %d años:\n", edad);
-    for (int i = 0; lista[i] != NULL; i++)
-    {
-        if (lista[i]->edad == edad)
-        {
-            printf("%s (%d años)\n", lista[i]->nombre, lista[i]->edad);
-            encontrado = 1;
-        }
-    }
-    if (!encontrado)
-    {
-        printf("No se encontraron alumnos de %d años.\n", edad);
-    }
-}
+// Buscar el alumnos por edad y devolverlos
+void buscarAlumnosPorEdad(ListaDeAlumnos *lista, int edad) {
 
-// Anotar un alumno que esta dado de alta en la materia
-void agregarMateriaAlumno(Alumno *listaAlumnos, char *nombreAlumno)
-{
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
-
-    if (indiceAlumno == -1)
-    {
-        printf("No se encontró el alumno %s\n", nombreAlumno);
-        return;
-    }
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
-
-    Materia *materiasNoInscriptas = obtenerMateriasNoInscriptas(alumno);
-    if (materiasNoInscriptas == NULL)
-    {
-        printf("El alumno %s ya está inscripto en todas las materias\n", nombreAlumno);
+    if (lista == NULL){
+        printf("Error: La lista está vacía\n");
         return;
     }
 
-    printf("Materias en las que no está inscripto el alumno %s:\n", nombreAlumno);
-    for (Materia *materia = materiasNoInscriptas; materia != NULL; materia = materia->proximo)
-    {
-        printf("  %s\n", materia->nombre);
-    }
+    int encontrados = 0;
+    int i = 0;
+    NodoAlumno *actual = lista->head;
 
-    char nombreMateria[50];
-    printf("Ingrese la materia que desea inscribirse: ");
-    scanf("%49s", nombreMateria);
+    printf("Alumnos de %d años son:\n", edad);
 
-    Materia *materia = buscarMateria(materiasNoInscriptas, nombreMateria);
-    if (materia == NULL)
-    {
-        printf("La materia %s no existe\n", nombreMateria);
-        return;
-    }
-
-    // Agregar la materia al alumno
-    if (alumno->materias == NULL)
-    {
-        // El alumno no tiene materias inscriptas
-        alumno->materias = materia;
-    }
-    else
-    {
-        // El alumno tiene al menos una materia inscripta
-        Materia *ultimaMateria = alumno->materias;
-        while (ultimaMateria->proximo != NULL)
-        {
-            ultimaMateria = ultimaMateria->proximo;
+    while (i < (lista->size)){
+        if (actual->datos->edad == edad){
+            printf("%s (%d años)\n", actual->datos->nombre, actual->datos->edad);
         }
-        ultimaMateria->proximo = materia;
+        actual = actual->prox;
+        encontrados++;
+        i++;
     }
 
-    modificarMateriaAlumno(listaAlumnos, nombreAlumno, nombreMateria, 1);
-    printf("Alumno %s inscripto en la materia %s con regularidad\n", nombreAlumno, nombreMateria);
 }
 
-Materia *obtenerMateriasNoInscriptas(Alumno *alumno)
-{
-    Materia *materiasNoInscriptas = NULL;
-    Materia *materiaActual = alumno->materias;
 
-    while (materiaActual != NULL)
-    {
-        Materia *materiaSiguiente = materiaActual->proximo;
-        materiaActual->proximo = materiasNoInscriptas;
-        materiasNoInscriptas = materiaActual;
-        materiaActual = materiaSiguiente;
-    }
 
-    return materiasNoInscriptas;
+//                 Funciones de materias                 
+
+
+
+// Dar de alta una materia
+void altaMateria(ListaDeMaterias *lista, char *nombre) {
+
+        NodoMateria *node = NewNodoMateria(NewMateria(nombre));
+
+        if (node == NULL){
+            return;
+        }
+        if (SizeOfMaterias(lista) == 0){
+            lista->head = node;
+            lista->tail = node;
+        }
+        else{
+            lista->tail->prox = node;
+            lista->tail = node;
+        }
+        lista->size++;
 }
 
-Materia *buscarMateria(Materia *materias, char *nombreMateria)
-{
-    for (Materia *materia = materias; materia != NULL; materia = materia->proximo)
-    {
-        if (strcmp(materia->nombre, nombreMateria) == 0)
-        {
-            return materia;
+Materia *buscarMateria(ListaDeMaterias *lista, char *nombreMateria) {
+
+    NodoMateria *materia = lista->head;
+    while (materia != NULL) {
+        if (strcmp(materia->datos->nombre, nombreMateria) == 0) {
+            return materia->datos;
         }
+        materia = materia->prox;
     }
     return NULL;
 }
 
-// Edita la materia del alumno con respecto a sus notas.
-void editarNotaDelAlumno(Alumno *listaAlumnos, char *nombreAlumno, char *nombreMateria, float nota)
-{
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+// Dar de baja una Materia
+void bajaMateria(ListaDeMaterias *lista, char *nombreMateria) {
 
-    if (indiceAlumno == -1)
-    {
-        printf("No se encontró el alumno %s\n", nombreAlumno);
+    if (lista == NULL || lista->head == NULL) {
+        printf("Error: La lista está vacía\n");
         return;
     }
 
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
-    Materia *cursor = alumno->materias;
-    while (cursor != NULL && strcmp(cursor->nombre, nombreMateria) != 0)
-    {
-        cursor = cursor->proximo;
+    Materia *actualM = buscarMateria(lista, nombreMateria);
+
+    if (actualM == NULL) {
+        printf("Error: No se encontró la materia en la lista\n");
+        return;
     }
 
-    if (cursor != NULL)
-    {
-        cursor->nota = nota;
-        if (cursor->regularidad == 1)
-        {
-            if (nota > 4)
-            {
-                cursor->estado = 1; // Aprobado
-            }
-            else
-            {
-                cursor->estado = 0; // No aprobado
-            }
-        }
+    NodoMateria *actual = lista->head;
+    NodoMateria *anterior = NULL;
+
+    while (actual != NULL && (actual->datos == NULL || strcmp(actual->datos->nombre, actualM->nombre) != 0)) {
+        anterior = actual;
+        actual = actual->prox;
     }
-    else
-    {
-        printf("La materia no existe.\n");
+
+    if (lista->head == actual) {
+        lista->head = actual->prox;
+    } else {
+        anterior->prox = actual->prox;
     }
 }
 
-// Imprime las materias que tiene un alumno junto a sus detalles
-void imprimirMateriasDelAlumno(Alumno *listaAlumnos, char *nombreAlumno)
-{
-    int indiceAlumno = buscarAlumno(listaAlumnos, nombreAlumno);
+// Modificar el nombre de una materia en cuestion ya existente
+void modificarNombreMateria(ListaDeMaterias *lista, char *nombre, char *nuevoNombre) {
+    if (lista == NULL || nombre == NULL || nuevoNombre == NULL) {
+        printf("Error: Parámetros inválidos\n");
+        return;
+    }
+    Materia *nodo = buscarMateria(lista, nombre);
 
-    if (indiceAlumno == -1)
-    {
-        printf("No se encontró el alumno %s\n", nombreAlumno);
+    if (nodo == NULL) {
+        printf("Error: No se encontró la materia con el nombre %s\n", nombre);
         return;
     }
 
-    Alumno *alumno = &listaAlumnos[indiceAlumno];
+    Materia *materiaAModificar = nodo;
+    free(materiaAModificar->nombre);
+    materiaAModificar->nombre = (char *) malloc((strlen(nuevoNombre) + 1) * sizeof(char));
+    strcpy(materiaAModificar->nombre, nuevoNombre);
+}
 
-    printf("Materias del alumno %s:\n", alumno->nombre);
+// Modificar el estado de aprobacio de una materia 1 = aprobado, 0 = desaprobado
+void modificarEstadoMateria(ListaDeMaterias *lista, char *nombreAlumno, char *nombreMateria, int estado) {
+    if (lista == NULL || nombreAlumno == NULL || nombreMateria == NULL || (estado < 0 || estado > 1)) {
+        printf("Error: Parámetros inválidos\n");
+        return;
+    }
+    Alumno alumnoAModificar = buscarAlumno(lista, nombreAlumno);
+    NodoMateria *actual = alumnoAModificar.materias->head;
 
-    Materia *cursor = alumno->materias;
-    while (cursor != NULL)
-    {
+    while (actual->datos->nombre != NULL){
+        if (actual->datos->nombre == nombreMateria){
+            actual->datos->estado = estado;
+            printf("El estado de la materia %s del alumno %s actualizada.\n",
+                   nombreMateria, actual->datos->nombre);
+            break;
+        }
+        *actual = *actual->prox;
+    }
+
+    printf("No se encontró la materia %s del alumno %s\n", nombreMateria, nombreAlumno);
+}
+
+// Modifica la materia del Alumno para que sea regular en dicha materia, 1 para ser regular, 0 para no serlo.
+void modificarRegularidadAlumno(ListaDeAlumnos *lista, char *nombreAlumno, char *nombreMateria, int regularidad) {
+
+    if (lista == NULL || nombreAlumno == NULL || nombreMateria == NULL || (regularidad < 0 || regularidad > 1)){
+        printf("Error: Alguno de los parametros es incorrecto");
+    }
+
+    Alumno alumnoAModificar = buscarAlumno(lista, nombreAlumno);
+    NodoMateria *actual = alumnoAModificar.materias->head;
+
+    while (actual->datos->nombre != NULL){
+        if (actual->datos->nombre == nombreMateria){
+            actual->datos->regularidad = regularidad;
+            printf("La regularidad de la materia %s del alumno %s actualizada.\n",
+                   nombreMateria, actual->datos->nombre);
+            break;
+        }
+        *actual = *actual->prox;
+    }
+
+    printf("No se encontró la materia %s del alumno %s\n", nombreMateria, nombreAlumno);
+}
+
+// Agrega una materia a la lista de materias de un alumno
+void agregarMateriaAlumno(ListaDeAlumnos *lista, ListaDeMaterias *listaM, char *nombreAlumno, char *nombreMateria){
+
+    if (listaM == NULL || lista == NULL || nombreAlumno == NULL || nombreMateria == NULL){
+        printf("Error: Alguno de los parametros es invalido");
+        return;
+    }
+
+    Alumno actual = buscarAlumno(lista, nombreAlumno);
+    Materia *mActual = buscarMateria(listaM, nombreMateria);
+    altaMateria(actual.materias, mActual->nombre);
+
+}
+
+// Lista de los alumnos de una materia especifica.
+void enlistarAlumnosRegulares(ListaDeAlumnos *lista, char *nombreMateria) {
+
+    if (lista == NULL) {
+        printf("Error: La lista se encuentra vacia");
+        return;
+    }
+
+    NodoAlumno *actual = lista->head;
+
+    while (actual != NULL) {
+        NodoMateria *actualM = actual->datos->materias->head;
+        while (actualM != NULL) {
+            if (actualM->datos->nombre == nombreMateria && actualM->datos->regularidad == 1) {
+                printf("Los alumnos que poseen la materia %s regularizada son:\n", nombreMateria);
+                printf("%s", actual->datos->nombre);
+            }
+            actualM = actualM->prox;
+        }
+        actual = actual->prox;
+    }
+}
+
+// Edita la nota de un alumno en una de sus materias.
+void editarNotaDelAlumno(ListaDeAlumnos *lista, char *nombreAlumno, char *nombreMateria, float nota) {
+
+    if (lista == NULL) {
+        printf("Error: La lista se encuentra vacía");
+        return;
+    }
+
+    NodoAlumno *actual = lista->head;
+
+    while (actual != NULL) {
+        NodoMateria *actualM = actual->datos->materias->head;
+        while (actualM != NULL) {
+            if (actual->datos->nombre == nombreAlumno && actualM->datos->nombre == nombreMateria) {
+                actualM->datos->nota = nota;
+                printf("Se ha actualizado la nota de la materia %s.", nombreMateria);
+                if (nota > 3) {
+                    actualM->datos->regularidad = 1;
+                    actualM->datos->estado = 1; // Aprobado
+                } else {
+                    actualM->datos->regularidad = 0;
+                    actualM->datos->estado = 0;
+                }
+                return;
+            }
+            actualM = actualM->prox;
+        }
+        actual = actual->prox;
+    }
+}
+
+
+// Imprime las materias que tiene un alumno junto a sus detalles.
+void imprimirMateriasDelAlumno(ListaDeAlumnos *lista,char *nombreAlumno) {
+
+    Alumno actual = buscarAlumno(lista, nombreAlumno);
+    NodoMateria *actualM = actual.materias->head;
+
+    while (actualM != NULL){
         printf("  %s - Nota: %.2f - Regularidad: %s - Estado: %s\n",
-               cursor->nombre, cursor->nota,
-               cursor->regularidad == 0 ? "Irregular" : "Regular",
-               cursor->estado == 0 ? "No aprobado" : "Aprobado");
-        cursor = cursor->proximo;
+               actualM->datos->nombre, actualM->datos->nota, actualM->datos->regularidad == 0 ? "Irregular" : "Regular",
+               actualM->datos->estado == 0 ? "No aprobado" : "Aprobado");
+        actualM = actualM->prox;
+    }
+}
+// Imprime el listado de las materias ingresadas.
+void imprimirMaterias(ListaDeMaterias *lista) {
+    if (lista == NULL || lista->head == NULL) {
+        printf("Error: La lista se encuentra vacía.\n");
+        return;
+    }
+
+    NodoMateria *actualM = lista->head;
+
+    while (actualM != NULL) {
+        if (actualM->datos != NULL && actualM->datos->nombre != NULL) {
+            printf("%s\n", actualM->datos->nombre);
+        }
+        actualM = actualM->prox;
     }
 }
 
-void imprimirMaterias(Materia *lista)
-{
-    while (lista != NULL)
-    {
-        printf("%s", lista->nombre);
-        lista = lista->proximo;
-        if (lista != NULL)
-        {
-            printf(", ");
-        }
-    }
-    printf("\n");
-}
+
+//----------------------------------

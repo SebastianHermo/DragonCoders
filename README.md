@@ -7,22 +7,22 @@ Integrantes del TP:
 
 Funciones implementadas:
     •altaAlumno
-    •altaMateria
     •bajaAlumno
-    •bajaMateria
-    •modificarMateria
-    •modificarMateriaAlumno
-    •modificarAlumno
-    •enlistarAlumnosRegulares
-    •enlistarAlumnos
-    •buscarAlumno
-    •buscarAlumnoEdad
-    •agregarMateriaAlumno
-    •buscarMateria
-    •obtenerMateriasNoInscriptas
-    •buscarMateria
+    •modificarAlumno   
     •editarNotaDelAlumno
+    •enlistarAlumnos  
+    •buscarAlumno      
+    •buscarAlumnosPorEdad
     •imprimirMateriasDelAlumno
+    •enlistarAlumnosRegulares
+
+    •altaMateria
+    •bajaMateria    
+    •buscarMateria    
+    •modificarNombreMateria
+    •modificarEstadoMateria
+    •modificarRegularidadAlumno
+    •agregarMateriaAlumno
     •imprimirMaterias
 
 Puntos extra:
@@ -32,7 +32,9 @@ Puntos extra:
     •ver estudiantes de un listado reducido
 
 
-Hola profe, queriamos avisar que a pesar de que en teoria la implementacion de las funciones es correcta no pudimos lograr que el codigo funcione bien devido a un problema con la asignacion de memoria. Y por eso no grabamos el video, ya que no podríamos demostrar el funcionamiento del codigo.
+*Hola profe, queriamos avisar que a pesar de que en teoria la implementacion de las funciones es correcta no pudimos lograr que el codigo funcione bien devido a un problema con la asignacion de memoria. Y por eso no grabamos el video, ya que no podríamos demostrar el funcionamiento del codigo.*
+
+
 
 
 
