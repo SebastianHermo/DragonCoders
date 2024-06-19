@@ -72,8 +72,7 @@ typedef struct structNodoMateria
 
 NodoMateria *NewNodoMateria(Materia *materia)
 {
-    NodoMateria *node;
-    node = (NodoMateria *)malloc(sizeof(NodoMateria));
+    NodoMateria *node = (NodoMateria *)malloc(sizeof(NodoMateria));
     node->datos = materia;
     node->prox = NULL;
     return node;

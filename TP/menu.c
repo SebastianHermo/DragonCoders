@@ -56,7 +56,7 @@ void menuGestionAlumnos(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMater
            "2. Dar de baja un alumno \n"
            "3. Modificar datos de alumno\n"
            "4. Enlistar Alumnos\n"
-           "5. Buscar Alumnos\n"
+           "5. Filtrar alumnos por edad\n"
            "6. Volver al menú principal\n");
 
     int opcion;
@@ -75,7 +75,7 @@ void menuGestionAlumnos(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMater
                "2. Dar de baja un alumno \n"
                "3. Modificar datos de alumno\n"
                "4. Enlistar Alumnos\n"
-               "5. Buscar Alumnos\n"
+               "5. Filtrar alumnos por edad\n"
                "6. Volver al menú principal\n");
         scanf("%d", &opcion);
     }
@@ -138,17 +138,23 @@ void menuGestionAlumnos(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMater
                     menuGestionAlumnos(listaAlumno, listaMateria);
                     break;
                 case 3:
-                    if (listaMateria->head == NULL)
-                    {
-                        printf("Error: Todavia no se ingreso ninguna materia\n");
-                        menuGestionAlumnos(listaAlumno, listaMateria);
+                    printf("Ingrese el nombre de la materia que se quiere agregar de las que hay a continuacion:\n");
+                    imprimirMaterias(listaMateria);
+                    scanf("%s", materia);
+                    
+                    if ((Materia *)buscarMateria(listaMateria, materia) == NULL){
+                        printf("La materia que quisiste ingresar no existe, vuelva a intentarlo cuando vuelva a este lugar.\n");
+                        menuGestionMaterias(listaAlumno, listaMateria);
+                        break;
                     }
-                    printf("Segun las materias de a continuacion:\n");
-                    imprimirMaterias(listaMateria);                    
-                    printf("Ingrese el alumno que quiere agregar su materia\n");
+
+                    printf("Ahora ingrese el nombre de el alumno correspondiente: \n");
+                    enlistarAlumnos(listaAlumno);
                     scanf("%s", alumno);
+
                     agregarMateriaAlumno(listaAlumno, listaMateria, alumno, materia);
-                    menuGestionAlumnos(listaAlumno, listaMateria);
+                    printf("La materia se agrego exitosamente.\n");
+                    menuGestionMaterias(listaAlumno, listaMateria);
                     break;
                 case 4:
                     menuGestionAlumnos(listaAlumno, listaMateria);
@@ -203,43 +209,13 @@ void menuGestionAlumnos(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMater
             }
             break;
         case 5:
-            printf("Seleccione a continuacion la opcion que desee utilizar\n");
-            printf("1. Buscar alumno en especifico\n"
-                   "2. Buscar alumno por edad\n"
-                   "3. Volver al menu de Gestiones de Alumnos\n");
-            scanf("%d", &opcion);
 
-            while (opcion < 1 || opcion > 3){
-                printf("La opción ingresada no es valida, porfavor vuelva a ingresar la opción que precise.\n");
-                // Limpia el buffer de entrada
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF)
-                {
-                }
-                printf("Seleccione a continuacion la opcion que desee utilizar\n");
-                printf("1. Buscar alumno en especifico\n"
-                       "2. Buscar alumno por edad\n"
-                       "3. Volver al menu de Gestiones de Alumnos\n");
-                scanf("%d", &opcion);
-            }
-                switch (opcion){
-                    case 1:
-                        printf("Ingrese a continuacion el alumno que quiere buscar:\n");
-                        scanf("%s", alumno);
-                        buscarAlumno(listaAlumno, alumno);
-                        menuGestionAlumnos(listaAlumno, listaMateria);
-                        break;
-                    case 2:
-                        printf("Ingrese a continuacion la edad que esta buscando:\n");
-                        scanf("%d", &edad);
-                        buscarAlumnosPorEdad(listaAlumno, edad);
-                        menuGestionAlumnos(listaAlumno, listaMateria);
-                        break;
-                    case 3:
-                        menuGestionAlumnos(listaAlumno, listaMateria);
-                        break;
-                }
-
+            printf("Ingrese a continuacion la edad que esta buscando:\n");
+            scanf("%d", &edad);
+            buscarAlumnosPorEdad(listaAlumno, edad);
+            menuGestionAlumnos(listaAlumno, listaMateria);
+            break;
+        
         case 6:
             menu(listaAlumno, listaMateria);
             break;
@@ -379,7 +355,7 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
             case 4:
                 printf("Ingrese el nombre de la materia que se quiere agregar de las que hay a continuacion:\n");
                 imprimirMaterias(listaMateria);
-                scanf("%s", materia);
+                scanf("%s\n", materia);
                 
                 if ((Materia *)buscarMateria(listaMateria, materia) == NULL){
                     printf("La materia que quisiste ingresar no existe, vuelva a intentarlo cuando vuelva a este lugar.\n");
@@ -387,7 +363,7 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
                     break;
                 }
 
-                printf("Ahora ingrese el nombre de el alumno correspondiente: ");
+                printf("Ahora ingrese el nombre de el alumno correspondiente: \n");
                 enlistarAlumnos(listaAlumno);
                 scanf("%s", alumno);
 

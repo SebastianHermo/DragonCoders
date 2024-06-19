@@ -2,6 +2,7 @@
 #include <string.h>
 #include "struct.h"
 
+
 // Función para dar de alta a un alumno
 void altaAlumno(ListaDeAlumnos *lista, char *nombreAlumno, int edad) {
     if (lista == NULL) {
@@ -103,25 +104,28 @@ void enlistarAlumnos(ListaDeAlumnos *lista) {
 }
 
 // Buscar si el alumno esta dado de Alta
+// Buscar si el alumno esta dado de Alta
 Alumno buscarAlumno(ListaDeAlumnos *lista, char *nombre) {
 
+    Alumno *alumnoNoEncontrado = NULL;
+    
     while (lista == NULL) {
         printf("Error: La lista está vacía\n");
         break;
     }
 
     NodoAlumno *actual = lista->head;
-    NodoAlumno *alumnoBuscado = NULL;
 
     while (actual != NULL) {
-        if (strcmp(actual->datos->nombre, nombre) == 0) {
-            *alumnoBuscado = *actual;
+        if (actual->datos != NULL && strcmp(actual->datos->nombre, nombre) == 0) {
+            return *actual->datos;
         }
         actual = actual->prox;
     }
 
-    return *alumnoBuscado->datos;
+    return *alumnoNoEncontrado;
 }
+
 
 // Buscar el alumnos por edad y devolverlos
 void buscarAlumnosPorEdad(ListaDeAlumnos *lista, int edad) {
@@ -156,21 +160,20 @@ void buscarAlumnosPorEdad(ListaDeAlumnos *lista, int edad) {
 
 // Dar de alta una materia
 void altaMateria(ListaDeMaterias *lista, char *nombre) {
+    NodoMateria *node = NewNodoMateria(NewMateria(nombre));
+    if (node == NULL) {
+        printf("Error: No se pudo crear el nodo\n");
+        return;
+    }
 
-        NodoMateria *node = NewNodoMateria(NewMateria(nombre));
-
-        if (node == NULL){
-            return;
-        }
-        if (SizeOfMaterias(lista) == 0){
-            lista->head = node;
-            lista->tail = node;
-        }
-        else{
-            lista->tail->prox = node;
-            lista->tail = node;
-        }
-        lista->size++;
+    if (lista->size == 0) {
+        lista->head = node;
+        lista->tail = node;
+    } else {
+        lista->tail->prox = node;
+        lista->tail = node;
+    }
+    lista->size++;
 }
 
 Materia *buscarMateria(ListaDeMaterias *lista, char *nombreMateria) {
@@ -289,8 +292,7 @@ void agregarMateriaAlumno(ListaDeAlumnos *lista, ListaDeMaterias *listaM, char *
 
     Alumno actual = buscarAlumno(lista, nombreAlumno);
     Materia *mActual = buscarMateria(listaM, nombreMateria);
-    altaMateria(actual.materias, mActual->nombre);
-
+    altaMateria(actual.materias, mActual);
 }
 
 // Lista de los alumnos de una materia especifica.
