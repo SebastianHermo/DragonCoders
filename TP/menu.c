@@ -253,6 +253,7 @@ void menuGestionMaterias(ListaDeAlumnos *listaAlumno, ListaDeMaterias *listaMate
 
     printf("1. Dar de alta una materia\n"
            "2. Dar de baja una materia \n"
+           "3. Modificar datos de una materia\n"
            "4. Enlistar las materias activas\n"
            "5. Volver al menú principal\n");
 
