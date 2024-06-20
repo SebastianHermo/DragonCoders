@@ -7,7 +7,7 @@
 void loadingBar();
 
 int main(){
-    //loadingBar();
+    loadingBar();
     ListaDeAlumnos *listaAlumnos = NewListaDeAlumnos();
     ListaDeMaterias *listaMaterias = NewListaDeMaterias();
     menu(listaAlumnos, listaMaterias);

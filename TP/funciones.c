@@ -292,7 +292,7 @@ void agregarMateriaAlumno(ListaDeAlumnos *lista, ListaDeMaterias *listaM, char *
 
     Alumno actual = buscarAlumno(lista, nombreAlumno);
     Materia *mActual = buscarMateria(listaM, nombreMateria);
-    altaMateria(actual.materias, mActual);
+    altaMateria(actual.materias, mActual->nombre);
 }
 
 // Lista de los alumnos de una materia especifica.

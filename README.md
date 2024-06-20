@@ -10,8 +10,7 @@ Funciones implementadas:
     •bajaAlumno
     •modificarAlumno   
     •editarNotaDelAlumno
-    •enlistarAlumnos  
-    •buscarAlumno      
+    •enlistarAlumnos     
     •buscarAlumnosPorEdad
     •imprimirMateriasDelAlumno
     •enlistarAlumnosRegulares
